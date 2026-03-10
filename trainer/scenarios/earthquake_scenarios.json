@@ -1,0 +1,86 @@
+{
+  "protocol_id": "earthquake_building_evacuation_v1",
+  "scenarios": [
+    {
+      "scenario_id": "eq_standard",
+      "name": "Standard Earthquake Evacuation",
+      "description": "A 5.8 magnitude earthquake strikes while you are on the 2nd floor of a public library during afternoon hours. About 30 visitors and 5 staff members are present. The building is a modern concrete structure with two stairwells and one elevator.",
+      "difficulty": "beginner",
+      "initial_state": {
+        "shaking_active": true,
+        "building_damage": "light",
+        "stairs_accessible": true,
+        "alternate_exit_available": true,
+        "elevator_available": true,
+        "injured_person_present": false,
+        "injured_person_severity": null,
+        "smoke_present": false,
+        "assembly_point_reached": false,
+        "headcount_completed": false,
+        "aftershock_risk": true,
+        "occupant_count": 35,
+        "floor": 2
+      },
+      "narrative_details": {
+        "location": "Central Public Library, 2nd floor reading area",
+        "time": "2:30 PM, Tuesday",
+        "people_nearby": "Several visitors reading, a librarian at the desk, children in the story corner",
+        "environment": "Books are falling from shelves, ceiling lights are swaying, people are screaming"
+      }
+    },
+    {
+      "scenario_id": "eq_moderate_injury",
+      "name": "Earthquake with Injured Persons",
+      "description": "A 6.2 magnitude earthquake hits while you are on the 3rd floor of a community center during a public event. Approximately 80 people are present. After the shaking stops, you discover an elderly person has been struck by a falling shelf and a child is crying with a minor cut.",
+      "difficulty": "intermediate",
+      "initial_state": {
+        "shaking_active": true,
+        "building_damage": "moderate",
+        "stairs_accessible": true,
+        "alternate_exit_available": true,
+        "elevator_available": true,
+        "injured_person_present": true,
+        "injured_person_severity": "minor",
+        "smoke_present": false,
+        "assembly_point_reached": false,
+        "headcount_completed": false,
+        "aftershock_risk": true,
+        "occupant_count": 80,
+        "floor": 3
+      },
+      "narrative_details": {
+        "location": "Riverside Community Center, 3rd floor event hall",
+        "time": "7:00 PM, Saturday",
+        "people_nearby": "Event attendees in formal clothing, catering staff, elderly guests, families with children",
+        "environment": "Decorations have fallen, tables overturned, glass from a window has shattered, lights flickering"
+      }
+    },
+    {
+      "scenario_id": "eq_blocked_route",
+      "name": "Earthquake with Blocked Primary Route",
+      "description": "A 6.5 magnitude earthquake strikes while you are on the 4th floor of a government office building. The main stairwell has been partially blocked by a collapsed ceiling section. Smoke is detected coming from the basement level.",
+      "difficulty": "advanced",
+      "initial_state": {
+        "shaking_active": true,
+        "building_damage": "severe",
+        "stairs_accessible": false,
+        "alternate_exit_available": true,
+        "elevator_available": true,
+        "injured_person_present": true,
+        "injured_person_severity": "moderate",
+        "smoke_present": true,
+        "assembly_point_reached": false,
+        "headcount_completed": false,
+        "aftershock_risk": true,
+        "occupant_count": 120,
+        "floor": 4
+      },
+      "narrative_details": {
+        "location": "Municipal Government Services Building, 4th floor offices",
+        "time": "10:15 AM, Wednesday",
+        "people_nearby": "Office workers, visitors waiting in queue, security guard, mail clerk",
+        "environment": "Ceiling tiles have fallen, a section of the hallway ceiling has collapsed near the main stairwell, acrid smell of smoke from below, fire alarm is sounding, sprinklers are partially active"
+      }
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "protocol_id": "earthquake_building_evacuation_v1",
+  "title": "Earthquake Evacuation in a Public Building",
+  "description": "Standard operating procedure for evacuating occupants from a public building during and after an earthquake event.",
+  "source": "Synthesized from FEMA, OSHA, and Red Cross earthquake safety guidelines",
+  "roles": ["building_occupant", "floor_warden", "staff_member"],
+  "initial_step": "drop_cover_hold",
+
+  "global_constraints": [
+    {
+      "id": "no_elevator",
+      "description": "Do not use elevators during or after an earthquake. Elevators may lose power, become misaligned, or sustain structural damage.",
+      "forbidden_actions": ["use_elevator"],
+      "critical": true
+    },
+    {
+      "id": "no_reentry",
+      "description": "Do not re-enter the building after evacuation until it has been officially cleared by emergency services.",
+      "forbidden_actions": ["re_enter_building"],
+      "critical": true
+    },
+    {
+      "id": "no_running_during_shaking",
+      "description": "Do not run or attempt to evacuate while the earthquake is still active. Running during shaking greatly increases risk of injury from falling debris and loss of balance.",
+      "forbidden_actions": ["run_outside_during_shaking"],
+      "critical": true
+    },
+    {
+      "id": "no_ignoring_hazards",
+      "description": "Do not ignore visible hazards such as structural damage, gas leaks, fire, or downed power lines. Failing to assess hazards before acting puts you and others at risk.",
+      "forbidden_actions": ["ignore_hazards"],
+      "critical": false
+    }
+  ],
+
+  "steps": [
+    {
+      "id": "drop_cover_hold",
+      "type": "action",
+      "description": "Drop to the ground, take cover under sturdy furniture, and hold on until shaking stops.",
+      "preconditions": ["shaking_active == true"],
+      "effects": [],
+      "allowed_next": ["wait_for_shaking_to_stop"],
+      "critical": true,
+      "phase": "immediate_response"
+    },
+    {
+      "id": "wait_for_shaking_to_stop",
+      "type": "action",
+      "description": "Remain in cover and wait until the shaking has completely stopped before moving.",
+      "preconditions": ["shaking_active == true"],
+      "effects": ["shaking_active = false"],
+      "allowed_next": ["assess_surroundings"],
+      "critical": true,
+      "phase": "immediate_response"
+    },
+    {
+      "id": "assess_surroundings",
+      "type": "action",
+      "description": "Assess immediate surroundings for hazards: structural damage, fallen debris, fire, gas leaks.",
+      "preconditions": ["shaking_active == false"],
+      "effects": [],
+      "allowed_next": ["check_route"],
+      "critical": true,
+      "phase": "assessment"
+    },
+    {
+      "id": "check_route",
+      "type": "decision",
+      "description": "Verify that the evacuation route is safe and passable.",
+      "preconditions": ["shaking_active == false"],
+      "conditions": [
+        {
+          "if": "stairs_accessible == true",
+          "next": "assist_vulnerable"
+        },
+        {
+          "if": "stairs_accessible == false",
+          "next": "seek_alternate_exit"
+        }
+      ],
+      "critical": true,
+      "phase": "route_planning"
+    },
+    {
+      "id": "seek_alternate_exit",
+      "type": "action",
+      "description": "Primary route is blocked. Identify and use an alternate safe exit.",
+      "preconditions": ["stairs_accessible == false"],
+      "effects": [],
+      "allowed_next": ["assist_vulnerable"],
+      "critical": true,
+      "phase": "route_planning"
+    },
+    {
+      "id": "assist_vulnerable",
+      "type": "decision",
+      "description": "Check for and assist injured or vulnerable individuals if it is safe to do so.",
+      "preconditions": [],
+      "conditions": [
+        {
+          "if": "injured_person_present == true",
+          "next": "support_injured"
+        },
+        {
+          "if": "injured_person_present == false",
+          "next": "evacuate"
+        }
+      ],
+      "critical": false,
+      "phase": "assistance"
+    },
+    {
+      "id": "support_injured",
+      "type": "action",
+      "description": "Provide first aid or assistance to injured individuals. Ensure they can evacuate safely or arrange further help.",
+      "preconditions": ["injured_person_present == true"],
+      "effects": [],
+      "allowed_next": ["evacuate"],
+      "critical": false,
+      "phase": "assistance"
+    },
+    {
+      "id": "evacuate",
+      "type": "action",
+      "description": "Evacuate through the designated safe route using stairs or approved exits. Do not use elevators.",
+      "preconditions": ["shaking_active == false"],
+      "effects": [],
+      "allowed_next": ["reach_assembly_point"],
+      "critical": true,
+      "phase": "evacuation"
+    },
+    {
+      "id": "reach_assembly_point",
+      "type": "action",
+      "description": "Move to the pre-designated assembly point outside the building, away from structures.",
+      "preconditions": [],
+      "effects": ["assembly_point_reached = true"],
+      "allowed_next": ["conduct_headcount"],
+      "critical": true,
+      "phase": "assembly"
+    },
+    {
+      "id": "conduct_headcount",
+      "type": "action",
+      "description": "Conduct a headcount to identify all personnel. Note any missing or unaccounted individuals.",
+      "preconditions": ["assembly_point_reached == true"],
+      "effects": ["headcount_completed = true"],
+      "allowed_next": ["report_status"],
+      "critical": true,
+      "phase": "accountability"
+    },
+    {
+      "id": "report_status",
+      "type": "action",
+      "description": "Report all injuries, missing persons, and observed hazards to the incident coordinator or emergency services.",
+      "preconditions": ["headcount_completed == true"],
+      "effects": [],
+      "allowed_next": ["monitor_aftershocks"],
+      "critical": false,
+      "phase": "reporting"
+    },
+    {
+      "id": "monitor_aftershocks",
+      "type": "action",
+      "description": "Remain at the assembly point. Stay alert for aftershocks. Do not re-enter the building until officially cleared.",
+      "preconditions": [],
+      "effects": [],
+      "allowed_next": [],
+      "terminal": true,
+      "critical": false,
+      "phase": "post_evacuation"
+    }
+  ],
+
+  "possible_actions": [
+    {"id": "drop_cover_hold", "label": "Drop, take cover, and hold on"},
+    {"id": "wait_for_shaking_to_stop", "label": "Wait for shaking to stop"},
+    {"id": "assess_surroundings", "label": "Assess surroundings for hazards"},
+    {"id": "check_route", "label": "Check evacuation route"},
+    {"id": "seek_alternate_exit", "label": "Look for alternate exit"},
+    {"id": "assist_vulnerable", "label": "Check for and assist vulnerable individuals"},
+    {"id": "support_injured", "label": "Help or treat an injured person"},
+    {"id": "evacuate", "label": "Evacuate through safe route"},
+    {"id": "reach_assembly_point", "label": "Move to assembly point"},
+    {"id": "conduct_headcount", "label": "Conduct headcount"},
+    {"id": "report_status", "label": "Report injuries and status"},
+    {"id": "monitor_aftershocks", "label": "Monitor for aftershocks and await clearance"},
+    {"id": "use_elevator", "label": "Use the elevator"},
+    {"id": "re_enter_building", "label": "Re-enter the building"},
+    {"id": "run_outside_during_shaking", "label": "Run outside while shaking is active"},
+    {"id": "ignore_hazards", "label": "Ignore visible hazards"},
+    {"id": "ask_question", "label": "Ask a question about the situation"},
+    {"id": "request_hint", "label": "Request a hint"}
+  ]
+}

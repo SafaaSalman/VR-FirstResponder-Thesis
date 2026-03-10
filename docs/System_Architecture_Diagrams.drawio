@@ -1,0 +1,676 @@
+<mxfile host="app.diagrams.net" modified="2026-03-10T00:00:00.000Z" agent="draw.io" version="24.7.17">
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PAGE 1 — SYSTEM OVERVIEW
+       Shows all 7 components, what each does, and how they connect.
+       ════════════════════════════════════════════════════════════════════ -->
+  <diagram id="page1-system-overview" name="1 – System Overview">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ── Title ─────────────────────────────────────────────── -->
+        <mxCell id="title" value="&lt;b&gt;Procedural Training Engine — System Architecture&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=24;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="350" y="15" width="700" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Hybrid architecture: Deterministic rule engine for protocol correctness + LLM for natural language interaction" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="50" width="800" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ── TRAINEE (left) ────────────────────────────────────── -->
+        <mxCell id="trainee_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;arcSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="280" width="200" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="trainee_icon" value="🧑‍🎓" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=40;" vertex="1" parent="1">
+          <mxGeometry x="85" y="290" width="80" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="trainee_label" value="&lt;b&gt;Trainee&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=16;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="55" y="340" width="140" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="trainee_desc" value="Types natural language:&lt;br&gt;&lt;i&gt;'I drop under the table'&lt;/i&gt;&lt;br&gt;&lt;i&gt;'I run to the elevator'&lt;/i&gt;&lt;br&gt;&lt;i&gt;'hint'&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="365" width="180" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT A: Action Parser ────────────────────────── -->
+        <mxCell id="parser_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="290" y="300" width="200" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="parser_label" value="&lt;b&gt;Action Parser&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="310" y="305" width="160" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="parser_tag" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="305" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="parser_desc" value="Maps free-text input&lt;br&gt;to structured action IDs&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Input: &lt;i&gt;'I run to the elevator'&lt;/i&gt;&lt;br&gt;Output: &lt;code&gt;[&quot;use_elevator&quot;]&lt;/code&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="300" y="335" width="185" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT B: Structured Protocol ──────────────────── -->
+        <mxCell id="protocol_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="570" y="100" width="250" height="145" as="geometry"/>
+        </mxCell>
+        <mxCell id="protocol_label" value="&lt;b&gt;B — Structured Protocol Model&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#7B1FA2;" vertex="1" parent="1">
+          <mxGeometry x="580" y="105" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="protocol_tag" value="JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#7B1FA2;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="765" y="105" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="protocol_desc" value="Steps, decisions, preconditions&lt;br&gt;branching logic, forbidden actions&lt;br&gt;critical step markers, effects&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Machine-readable protocol graph&lt;br&gt;(not prose — structured rules)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="580" y="130" width="235" height="105" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT C: State Engine ─────────────────────────── -->
+        <mxCell id="state_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="570" y="530" width="250" height="145" as="geometry"/>
+        </mxCell>
+        <mxCell id="state_label" value="&lt;b&gt;C — Scenario State Engine&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="580" y="535" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="state_desc" value="Tracks the live world:&lt;br&gt;shaking active, damage level,&lt;br&gt;exits blocked, injured present...&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;+ Trainee progress: completed steps,&lt;br&gt;violations, hint count&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="580" y="560" width="230" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT D: Rule Engine (center) ─────────────────── -->
+        <mxCell id="rule_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=3;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="290" width="270" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="rule_label" value="&lt;b&gt;D — Rule Engine&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=16;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="600" y="295" width="200" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="rule_tag" value="DETERMINISTIC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="695" y="295" width="110" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="rule_desc" value="• Is this action valid right now?&lt;br&gt;• Which constraint is violated?&lt;br&gt;• What steps were skipped?&lt;br&gt;• Is this a critical safety error?&lt;br&gt;• What should happen next?&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#C62828'&gt;&lt;b&gt;THE RULE ENGINE DECIDES TRUTH.&lt;br&gt;The LLM only communicates it.&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="570" y="325" width="250" height="155" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT A: Knowledge Base ───────────────────────── -->
+        <mxCell id="kb_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="910" y="100" width="250" height="125" as="geometry"/>
+        </mxCell>
+        <mxCell id="kb_label" value="&lt;b&gt;A — Protocol Knowledge Base&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="920" y="105" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="kb_desc" value="SOP paragraphs, safety notes,&lt;br&gt;rule explanations, role guidance&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;The &lt;b&gt;original prose&lt;/b&gt; from which&lt;br&gt;the protocol model was derived&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="920" y="130" width="230" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT F: RAG Layer ────────────────────────────── -->
+        <mxCell id="rag_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="910" y="270" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="rag_label" value="&lt;b&gt;F — RAG Retrieval Layer&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="920" y="275" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="rag_desc" value="Retrieves protocol paragraphs&lt;br&gt;for grounded explanations&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Fires &lt;b&gt;AFTER&lt;/b&gt; the rule engine —&lt;br&gt;does NOT decide correctness&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="920" y="300" width="230" height="95" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT E: LLM Layer ────────────────────────────── -->
+        <mxCell id="llm_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="910" y="440" width="250" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="llm_label" value="&lt;b&gt;E — LLM Interaction Layer&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="920" y="445" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="llm_tag" value="GPT-4o" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="445" width="50" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="llm_desc" value="Scenario narration&lt;br&gt;Feedback generation&lt;br&gt;Hint delivery&lt;br&gt;Debrief writing&lt;br&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Receives: rule result + RAG evidence&lt;br&gt;Never invents protocol facts&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="920" y="470" width="230" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- ── COMPONENT G: Evaluation ───────────────────────────── -->
+        <mxCell id="eval_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="910" y="625" width="250" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval_label" value="&lt;b&gt;G — Evaluation &amp; Scoring&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="920" y="630" width="230" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval_tag" value="DETERMINISTIC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C62828;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="630" width="85" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval_desc" value="Sequence adherence · Critical compliance&lt;br&gt;Branch correctness · Hazard awareness&lt;br&gt;Completion quality · Overall score&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;(All rule-based, not LLM-based)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="920" y="660" width="230" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ── OUTPUT (right) ────────────────────────────────────── -->
+        <mxCell id="output_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;strokeWidth=2;arcSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="370" width="220" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="output_icon" value="💬" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=35;" vertex="1" parent="1">
+          <mxGeometry x="1325" y="375" width="60" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="output_label" value="&lt;b&gt;Trainer Response&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#37474F;" vertex="1" parent="1">
+          <mxGeometry x="1275" y="415" width="170" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="output_desc" value="Natural language feedback&lt;br&gt;Protocol-grounded evidence&lt;br&gt;Progressive hints&lt;br&gt;After-action debrief&lt;br&gt;Scores &amp; recommendations" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="440" width="200" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- ── ARROWS ────────────────────────────────────────────── -->
+
+        <!-- Trainee → Parser -->
+        <mxCell id="a1" value="free text" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#1565C0;fontColor=#1565C0;fontSize=11;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="trainee_box" target="parser_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Parser → Rule Engine -->
+        <mxCell id="a2" value="action IDs" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=11;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" edge="1" parent="1" source="parser_box" target="rule_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Protocol → Rule Engine -->
+        <mxCell id="a3" value="protocol&lt;br&gt;graph" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#7B1FA2;fontColor=#7B1FA2;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="protocol_box" target="rule_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- State ↔ Rule Engine (bidirectional) -->
+        <mxCell id="a4" value="reads state" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#2E7D32;fontColor=#2E7D32;fontSize=10;fontStyle=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.4;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="state_box" target="rule_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="updates state" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#2E7D32;fontColor=#2E7D32;fontSize=10;fontStyle=1;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.8;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="rule_box" target="state_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- KB → RAG -->
+        <mxCell id="a6" value="source text" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#1565C0;fontColor=#1565C0;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="kb_box" target="rag_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Rule Engine → RAG (retrieve evidence) -->
+        <mxCell id="a7" value="which steps&lt;br&gt;need evidence" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rule_box" target="rag_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- RAG → LLM -->
+        <mxCell id="a8" value="grounding&lt;br&gt;evidence" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rag_box" target="llm_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Rule Engine → LLM (validated result) -->
+        <mxCell id="a9" value="validated&lt;br&gt;result" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rule_box" target="llm_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- LLM → Output -->
+        <mxCell id="a10" value="natural&lt;br&gt;language" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#2E7D32;fontColor=#2E7D32;fontSize=11;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" edge="1" parent="1" source="llm_box" target="output_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Rule Engine → Evaluation -->
+        <mxCell id="a11" value="performance&lt;br&gt;trace" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=0.8;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rule_box" target="eval_box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="850" y="685"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Evaluation → Output (scores/debrief) -->
+        <mxCell id="a12" value="scores &amp;&lt;br&gt;debrief data" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#37474F;fontColor=#37474F;fontSize=10;fontStyle=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="eval_box" target="output_box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1360" y="660"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Output → Trainee (feedback loop) -->
+        <mxCell id="a13" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#37474F;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=1;entryY=0.8;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="output_box" target="trainee_box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1240" y="850"/>
+              <mxPoint x="240" y="850"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a13_label" value="feedback displayed to trainee → next turn" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontColor=#37474F;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="500" y="830" width="350" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- ── KEY DESIGN PRINCIPLE callout ──────────────────────── -->
+        <mxCell id="principle_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="105" width="480" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="principle_label" value="⚡ &lt;b&gt;Key Design Principle&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="45" y="110" width="300" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="principle_text" value="The &lt;b&gt;Rule Engine&lt;/b&gt; (deterministic) decides protocol correctness.&lt;br&gt;The &lt;b&gt;LLM&lt;/b&gt; only communicates the result in natural language.&lt;br&gt;The &lt;b&gt;RAG&lt;/b&gt; fires &lt;b&gt;after&lt;/b&gt; the rule engine, to provide grounded evidence." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="45" y="135" width="460" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ── KB → Protocol (dashed, offline) ──────────────────── -->
+        <mxCell id="a14" value="formalized&lt;br&gt;offline" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#7B1FA2;fontColor=#7B1FA2;fontSize=10;fontStyle=2;dashed=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="kb_box" target="protocol_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PAGE 2 — SINGLE TURN PIPELINE
+       Shows one trainee action flowing through the system with example I/O
+       ════════════════════════════════════════════════════════════════════ -->
+  <diagram id="page2-single-turn" name="2 – Single Turn Pipeline">
+    <mxGraphModel dx="1800" dy="1300" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ── Title ─────────────────────────────────────────────── -->
+        <mxCell id="t_title" value="&lt;b&gt;Single-Turn Data Flow — Example: Invalid Action&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="300" y="15" width="700" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="t_sub" value="Trainee says: &lt;b&gt;&lt;i&gt;'I evacuate using the elevator because it is faster'&lt;/i&gt;&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=14;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="350" y="48" width="600" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- ── STEP 1: Trainee Input ─────────────────────────────── -->
+        <mxCell id="s1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="300" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_num" value="①" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontColor=#1565C0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="110" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_label" value="&lt;b&gt;Trainee Input&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="85" y="110" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1_content" value="&lt;font style='font-family:Consolas;font-size:11px;background:#f5f5f5;padding:4px'&gt;'I evacuate using the elevator&lt;br&gt;because it is faster'&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="50" y="150" width="280" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ── STEP 2: Action Parser ─────────────────────────────── -->
+        <mxCell id="s2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="280" width="300" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_num" value="②" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontColor=#E65100;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="280" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_label" value="&lt;b&gt;Action Parser&lt;/b&gt; &lt;font color='#888'&gt;(LLM)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="85" y="280" width="250" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_desc" value="Maps free-text → action IDs" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="55" y="310" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2_output" value="&lt;font style='font-family:Consolas;font-size:11px'&gt;{&lt;br&gt;  &quot;actions&quot;: [&lt;br&gt;    &quot;use_elevator&quot;,&lt;br&gt;    &quot;evacuate&quot;&lt;br&gt;  ]&lt;br&gt;}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#E65100;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="60" y="335" width="260" height="95" as="geometry"/>
+        </mxCell>
+
+        <!-- ── STEP 3: Rule Engine ───────────────────────────────── -->
+        <mxCell id="s3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="420" y="110" width="400" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_num" value="③" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontColor=#C62828;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="425" y="110" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_label" value="&lt;b&gt;Rule Engine&lt;/b&gt; &lt;font color='#888'&gt;(Deterministic)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="465" y="110" width="320" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Sub-step: check constraints -->
+        <mxCell id="s3a" value="Check global constraints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCDD2;strokeColor=#EF9A9A;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="150" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3a_out" value="❌ &lt;b&gt;use_elevator&lt;/b&gt; is in&lt;br&gt;&lt;code&gt;no_elevator.forbidden_actions&lt;/code&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="630" y="145" width="185" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Sub-step: check skipped -->
+        <mxCell id="s3b" value="Check skipped steps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFCDD2;strokeColor=#EF9A9A;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="195" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3b_out" value="⚠️ &lt;b&gt;assess_surroundings&lt;/b&gt; and&lt;br&gt;&lt;b&gt;check_route&lt;/b&gt; not completed" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#C62828;" vertex="1" parent="1">
+          <mxGeometry x="630" y="190" width="185" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Output JSON -->
+        <mxCell id="s3_output_label" value="Rule Engine Output:" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#C62828;fontStyle=3;" vertex="1" parent="1">
+          <mxGeometry x="440" y="240" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3_output" value="&lt;font style='font-family:Consolas;font-size:10px'&gt;{&lt;br&gt;  &quot;matched_step&quot;: null,&lt;br&gt;  &quot;validity&quot;: &quot;invalid&quot;,&lt;br&gt;  &quot;violations&quot;: [&quot;forbidden_action_use_elevator&quot;],&lt;br&gt;  &quot;skipped_steps&quot;: [&quot;assess_surroundings&quot;, &quot;check_route&quot;],&lt;br&gt;  &quot;critical_error&quot;: true,&lt;br&gt;  &quot;constraint_violated&quot;: &quot;no_elevator&quot;,&lt;br&gt;  &quot;next_expected_step&quot;: &quot;assess_surroundings&quot;,&lt;br&gt;  &quot;reason&quot;: &quot;Do not use elevators during...&quot;&lt;br&gt;}&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#C62828;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="440" y="260" width="365" height="165" as="geometry"/>
+        </mxCell>
+
+        <!-- ── STEP 4: RAG Retrieval ─────────────────────────────── -->
+        <mxCell id="s4_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="500" width="300" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_num" value="④" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontColor=#E65100;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="45" y="500" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_label" value="&lt;b&gt;RAG Retrieval&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="85" y="500" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_desc" value="Trigger: constraint &lt;b&gt;no_elevator&lt;/b&gt; violated" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="55" y="530" width="280" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4_output" value="&lt;font style='font-family:Consolas;font-size:10px'&gt;&lt;b&gt;[kb_004] Elevator Prohibition&lt;/b&gt;&lt;br&gt;&quot;Elevators must never be used during&lt;br&gt;or immediately after an earthquake.&lt;br&gt;Earthquake forces can misalign elevator&lt;br&gt;shafts, damage cables, disable power...&quot;&lt;br&gt;&lt;br&gt;&lt;b&gt;[kb_005] Route Verification&lt;/b&gt;&lt;br&gt;&quot;Before beginning evacuation, verify&lt;br&gt;that your planned route is safe...&quot;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#E65100;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="50" y="555" width="280" height="135" as="geometry"/>
+        </mxCell>
+
+        <!-- ── STEP 5: LLM Response Generation ──────────────────── -->
+        <mxCell id="s5_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="420" y="500" width="400" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_num" value="⑤" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=28;fontColor=#2E7D32;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="425" y="500" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_label" value="&lt;b&gt;LLM Response Generation&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="465" y="500" width="320" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_desc" value="Receives: rule result + RAG evidence&lt;br&gt;Task: explain the error naturally" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="435" y="530" width="350" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5_output" value="&lt;font style='font-size:12px;color:#2E7D32'&gt;&lt;b&gt;Generated response:&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;&lt;font style='font-size:12px;color:#333'&gt;&lt;i&gt;'Using the elevator is not allowed in this&lt;br&gt;earthquake evacuation procedure. The correct&lt;br&gt;sequence is to assess surroundings after&lt;br&gt;shaking stops, verify a safe evacuation route,&lt;br&gt;and evacuate using stairs or another approved&lt;br&gt;exit. Elevators may become unsafe due to power&lt;br&gt;or structural failure. What would you like to&lt;br&gt;do instead?'&lt;/i&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F1F8E9;strokeColor=#2E7D32;strokeWidth=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="435" y="565" width="370" height="125" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Arrows between steps ──────────────────────────────── -->
+
+        <!-- 1 → 2 -->
+        <mxCell id="t_a1" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#333;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="s1_box" target="s2_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 2 → 3 -->
+        <mxCell id="t_a2" value="action IDs" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=11;fontStyle=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="s2_box" target="s3_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 3 → 4 -->
+        <mxCell id="t_a3" value="step IDs +&lt;br&gt;constraint ID" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=0;exitY=0.85;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3_box" target="s4_box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="390"/>
+              <mxPoint x="400" y="560"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 4 → 5 -->
+        <mxCell id="t_a4" value="protocol&lt;br&gt;paragraphs" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=10;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s4_box" target="s5_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 3 → 5 (rule result) -->
+        <mxCell id="t_a5" value="validated result" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3_box" target="s5_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Flow order legend ─────────────────────────────────── -->
+        <mxCell id="legend_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#BDBDBD;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="110" width="400" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend_title" value="&lt;b&gt;Pipeline Order&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=16;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="115" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="&lt;font color='#1565C0'&gt;&lt;b&gt;①&lt;/b&gt;&lt;/font&gt;  Trainee types free text" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="920" y="155" width="350" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="&lt;font color='#E65100'&gt;&lt;b&gt;②&lt;/b&gt;&lt;/font&gt;  Action Parser (LLM) extracts action IDs" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="920" y="185" width="370" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="&lt;font color='#C62828'&gt;&lt;b&gt;③&lt;/b&gt;&lt;/font&gt;  Rule Engine checks validity (DETERMINISTIC)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="920" y="215" width="370" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3a" value="      • Constraint check (forbidden actions)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="240" width="350" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3b" value="      • Skipped step detection" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="258" width="350" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3c" value="      • Precondition verification" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="276" width="350" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3d" value="      • State update (if action valid)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="294" width="350" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="&lt;font color='#E65100'&gt;&lt;b&gt;④&lt;/b&gt;&lt;/font&gt;  RAG retrieves protocol evidence" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="920" y="320" width="370" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4a" value="      • Only fires &lt;b&gt;after&lt;/b&gt; rule engine decides" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="345" width="350" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4b" value="      • Fetches text for: violated constraint, skipped steps" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="363" width="370" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5" value="&lt;font color='#2E7D32'&gt;&lt;b&gt;⑤&lt;/b&gt;&lt;/font&gt;  LLM generates response from rule result + RAG" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="920" y="390" width="370" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5a" value="      • Natural language, in-character" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="920" y="415" width="350" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ── What the LLM sees callout ─────────────────────────── -->
+        <mxCell id="llm_sees_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="900" y="500" width="400" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="llm_sees_title" value="&lt;b&gt;What the LLM receives (prompt context)&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#2E7D32;" vertex="1" parent="1">
+          <mxGeometry x="920" y="505" width="360" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="llm_sees" value="&lt;font style='font-size:11px'&gt;1. &lt;b&gt;Rule engine result&lt;/b&gt;: validity, violations, skipped steps&lt;br&gt;2. &lt;b&gt;RAG evidence&lt;/b&gt;: relevant protocol paragraphs&lt;br&gt;3. &lt;b&gt;Scenario state&lt;/b&gt;: current conditions&lt;br&gt;4. &lt;b&gt;Narrative context&lt;/b&gt;: location, people, environment&lt;br&gt;&lt;br&gt;&lt;font color='#C62828'&gt;&lt;b&gt;The LLM does NOT:&lt;/b&gt;&lt;/font&gt;&lt;br&gt;• Decide if the action is right or wrong&lt;br&gt;• Choose the next protocol step&lt;br&gt;• Invent protocol facts&lt;br&gt;• Score the trainee&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="915" y="535" width="375" height="160" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       PAGE 3 — SESSION LIFECYCLE
+       Shows the full training session from start to debrief.
+       ════════════════════════════════════════════════════════════════════ -->
+  <diagram id="page3-session-lifecycle" name="3 – Session Lifecycle">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ── Title ─────────────────────────────────────────────── -->
+        <mxCell id="l_title" value="&lt;b&gt;Training Session Lifecycle&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=24;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="500" y="15" width="500" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="l_sub" value="From session start → scenario presentation → trainee interactions → scoring → debrief" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=13;fontColor=#555;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="350" y="48" width="700" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- ══ PHASE 1: SESSION START ═══════════════════════════════ -->
+        <mxCell id="p1_container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;strokeWidth=2;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="350" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_phase" value="PHASE 1 — INITIALIZATION" style="text;html=1;strokeColor=none;fillColor=#1565C0;fontColor=#ffffff;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="95" width="250" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_s1" value="Load protocol JSON" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#64B5F6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="160" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_s2" value="Load scenario state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#64B5F6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="170" width="160" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_s3" value="Initialize rule engine + state tracker" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#BBDEFB;strokeColor=#64B5F6;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="210" width="240" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_s4" value="LLM generates scenario introduction" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="250" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1_out" value="&lt;i&gt;'A powerful earthquake strikes...&lt;br&gt;What do you do?'&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#1565C0;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="285" width="300" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ══ PHASE 2: INTERACTION LOOP ════════════════════════════ -->
+        <mxCell id="p2_container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;strokeWidth=2;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="440" y="90" width="470" height="410" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_phase" value="PHASE 2 — TRAINING LOOP  (repeats per turn)" style="text;html=1;strokeColor=none;fillColor=#E65100;fontColor=#ffffff;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="95" width="350" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Turn flow -->
+        <mxCell id="p2_input" value="&lt;b&gt;Trainee action&lt;/b&gt;&lt;br&gt;(free text)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#1565C0;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="135" width="140" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_parse" value="&lt;b&gt;Action Parser&lt;/b&gt;&lt;br&gt;text → action IDs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="200" width="140" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_rule" value="&lt;b&gt;Rule Engine&lt;/b&gt;&lt;br&gt;validate action" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="460" y="265" width="140" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- Branch: valid vs invalid -->
+        <mxCell id="p2_diamond" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFECB3;strokeColor=#F9A825;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="490" y="330" width="80" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_diamond_label" value="valid?" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="495" y="340" width="70" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Valid path -->
+        <mxCell id="p2_valid" value="&lt;font color='#2E7D32'&gt;&lt;b&gt;Valid&lt;/b&gt;&lt;/font&gt;&lt;br&gt;Apply effects&lt;br&gt;Advance state&lt;br&gt;Mark step done" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="265" width="130" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Invalid path -->
+        <mxCell id="p2_invalid" value="&lt;font color='#C62828'&gt;&lt;b&gt;Invalid&lt;/b&gt;&lt;/font&gt;&lt;br&gt;Log violation&lt;br&gt;No state change&lt;br&gt;Flag critical error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#C62828;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="350" width="130" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- RAG + LLM -->
+        <mxCell id="p2_rag" value="&lt;b&gt;RAG&lt;/b&gt; retrieves evidence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="770" y="285" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_llm" value="&lt;b&gt;LLM&lt;/b&gt; generates response" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="770" y="345" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_response" value="&lt;b&gt;Trainer response&lt;/b&gt;&lt;br&gt;→ displayed to trainee" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="770" y="415" width="130" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Hint side-loop -->
+        <mxCell id="p2_hint_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;strokeColor=#7B1FA2;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="405" width="270" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_hint_label" value="&lt;b&gt;Hint system&lt;/b&gt;  (if trainee types 'hint')" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#7B1FA2;" vertex="1" parent="1">
+          <mxGeometry x="470" y="408" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_hint_desc" value="Level 1: &lt;i&gt;gentle nudge&lt;/i&gt;&lt;br&gt;Level 2: &lt;i&gt;direct guidance&lt;/i&gt;&lt;br&gt;Level 3: &lt;i&gt;explicit instruction&lt;/i&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="470" y="430" width="250" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows inside P2 -->
+        <mxCell id="p2a1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="p2_input" target="p2_parse">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a2" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="p2_parse" target="p2_rule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a3" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="p2_rule" target="p2_diamond">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a4" value="✓" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#2E7D32;fontColor=#2E7D32;fontSize=12;fontStyle=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_diamond" target="p2_valid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a5" value="✗" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=12;fontStyle=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_diamond" target="p2_invalid">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a6" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_valid" target="p2_rag">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a7" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_invalid" target="p2_llm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a8" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="p2_rag" target="p2_llm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2a9" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="p2_llm" target="p2_response">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Loop arrow back -->
+        <mxCell id="p2_loop" value="next turn" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#1565C0;fontColor=#1565C0;fontSize=11;fontStyle=1;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_response" target="p2_input">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="835" y="500"/>
+              <mxPoint x="910" y="500"/>
+              <mxPoint x="910" y="70"/>
+              <mxPoint x="600" y="70"/>
+              <mxPoint x="600" y="130"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ══ PHASE 3: COMPLETION & DEBRIEF ════════════════════════ -->
+        <mxCell id="p3_container" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;strokeWidth=2;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="350" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_phase" value="PHASE 3 — DEBRIEF &amp; SCORING" style="text;html=1;strokeColor=none;fillColor=#2E7D32;fontColor=#ffffff;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="385" width="250" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_trigger" value="&lt;i&gt;Triggered when:&lt;/i&gt; protocol complete, or trainee types 'quit'" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=11;fontColor=#666;" vertex="1" parent="1">
+          <mxGeometry x="55" y="415" width="330" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_s1" value="Scoring engine computes 5 dimensions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#66BB6A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="445" width="250" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_s2" value="Debrief generator assembles structured data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#66BB6A;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="483" width="280" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_s3" value="RAG retrieves evidence for missed steps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="521" width="260" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_s4" value="LLM writes after-action debrief" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#2E7D32;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="559" width="220" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ── PHASE 3 output example ────────────────────────────── -->
+        <mxCell id="p3_debrief_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ECEFF1;strokeColor=#37474F;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="860" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_debrief_title" value="💬 &lt;b&gt;Example Debrief Output&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#37474F;" vertex="1" parent="1">
+          <mxGeometry x="55" y="645" width="300" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_debrief_left" value="&lt;font style='font-size:12px'&gt;&lt;b&gt;✅ Done correctly:&lt;/b&gt;&lt;br&gt;  Drop, cover, hold&lt;br&gt;  Waited for shaking to stop&lt;br&gt;  Assessed surroundings&lt;br&gt;  Evacuated via stairs&lt;br&gt;  Reached assembly point&lt;br&gt;&lt;br&gt;&lt;b&gt;❌ Missed:&lt;/b&gt;&lt;br&gt;  Check evacuation route &lt;font color='#C62828'&gt;(critical)&lt;/font&gt;&lt;br&gt;  Conduct headcount &lt;font color='#C62828'&gt;(critical)&lt;/font&gt;&lt;br&gt;  Report status&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="55" y="675" width="250" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_debrief_mid" value="&lt;font style='font-size:12px'&gt;&lt;b&gt;⚠️ Critical errors:&lt;/b&gt;&lt;br&gt;  Attempted to use elevator&lt;br&gt;&lt;br&gt;&lt;b&gt;📊 Scores:&lt;/b&gt;&lt;br&gt;  Sequence adherence: 70/100&lt;br&gt;  Critical compliance: 50/100&lt;br&gt;  Branch correctness: 80/100&lt;br&gt;  Hazard awareness: 60/100&lt;br&gt;  Completion quality: 40/100&lt;br&gt;  &lt;b&gt;Overall: 58/100&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="330" y="675" width="250" height="210" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3_debrief_right" value="&lt;font style='font-size:12px'&gt;&lt;b&gt;📝 Recommendations:&lt;/b&gt;&lt;br&gt;  1. Always verify route before&lt;br&gt;     evacuating — stairs may be&lt;br&gt;     blocked by debris&lt;br&gt;  2. Never use elevators during&lt;br&gt;     earthquake evacuation&lt;br&gt;  3. Complete headcount at&lt;br&gt;     assembly point&lt;br&gt;&lt;br&gt;&lt;b&gt;🔄 Next session:&lt;/b&gt;&lt;br&gt;  &lt;font color='#7B1FA2'&gt;&lt;i&gt;Can target weak areas:&lt;br&gt;  accountability, route checking&lt;/i&gt;&lt;/font&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="610" y="675" width="270" height="210" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Phase arrows ──────────────────────────────────────── -->
+        <mxCell id="pa1" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=3;strokeColor=#37474F;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="p1_container" target="p2_container">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="pa2" value="protocol&lt;br&gt;complete" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=3;strokeColor=#37474F;fontColor=#37474F;fontSize=10;fontStyle=1;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="p2_container" target="p3_container">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="460"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ── Future work callout ───────────────────────────────── -->
+        <mxCell id="future_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;strokeWidth=2;dashed=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="960" y="640" width="370" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="future_title" value="🔮 &lt;b&gt;Future: Adaptability Layer&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#F57F17;" vertex="1" parent="1">
+          <mxGeometry x="975" y="645" width="300" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="future_desc" value="&lt;font style='font-size:12px'&gt;After debrief, the system can build a &lt;b&gt;learner model&lt;/b&gt;:&lt;br&gt;&lt;br&gt;• Track per-step mastery across sessions&lt;br&gt;• Identify weak protocol areas&lt;br&gt;• Generate next scenario targeting gaps&lt;br&gt;&lt;br&gt;&lt;i&gt;Example:&lt;/i&gt;&lt;br&gt;Trainee consistently forgets headcount&lt;br&gt;→ next session emphasizes accountability phase&lt;br&gt;→ scenario adds more missing-persons conditions&lt;br&gt;&lt;br&gt;&lt;font color='#F57F17'&gt;&lt;b&gt;(Mentioned as next step in thesis scope)&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=12;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="975" y="675" width="345" height="220" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrow: debrief → future -->
+        <mxCell id="fa1" value="feeds into" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#F9A825;fontColor=#F9A825;fontSize=10;fontStyle=3;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="p3_debrief_box" target="future_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+</mxfile>

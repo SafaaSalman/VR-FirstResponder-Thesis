@@ -1,0 +1,115 @@
+{
+  "protocol_id": "earthquake_building_evacuation_v1",
+  "description": "Knowledge base chunks extracted from earthquake evacuation SOPs. Used by the RAG layer to provide grounded explanations, hints, and debrief justifications.",
+
+  "chunks": [
+    {
+      "chunk_id": "kb_001",
+      "title": "Drop, Cover, and Hold On Procedure",
+      "text": "During an earthquake, the immediate response is to Drop, Cover, and Hold On. Drop to your hands and knees to prevent being knocked down. Take cover under a sturdy desk, table, or against an interior wall away from windows, shelves, and heavy objects that could fall. Hold on to your shelter and be prepared to move with it until the shaking stops. Do not attempt to run outside or to another room during shaking, as falling debris poses a significant hazard.",
+      "related_steps": ["drop_cover_hold"],
+      "tags": ["immediate_response", "safety", "critical"]
+    },
+    {
+      "chunk_id": "kb_002",
+      "title": "Remain in Place Until Shaking Stops",
+      "text": "Do not move from your sheltered position until the shaking has completely stopped. Premature movement during an earthquake increases the risk of injury from falling objects, broken glass, and structural collapse. Aftershocks may follow the initial quake, so remain alert even after the primary shaking subsides. Only begin to move once you are confident the shaking has ceased.",
+      "related_steps": ["wait_for_shaking_to_stop", "drop_cover_hold"],
+      "tags": ["immediate_response", "safety", "critical"]
+    },
+    {
+      "chunk_id": "kb_003",
+      "title": "Post-Earthquake Hazard Assessment",
+      "text": "Once shaking stops, carefully assess your immediate surroundings before moving. Look for structural damage such as cracked walls, sagging ceilings, or broken supports. Check for fire, sparks, gas leaks (smell of gas), water pipe damage, or downed electrical lines. If you smell gas, do not use any electrical switches or open flames. This assessment determines whether it is safe to begin evacuation or if shelter-in-place is necessary.",
+      "related_steps": ["assess_surroundings"],
+      "tags": ["assessment", "hazards", "critical"]
+    },
+    {
+      "chunk_id": "kb_004",
+      "title": "Elevator Prohibition During Earthquakes",
+      "text": "Elevators must never be used during or immediately after an earthquake. Earthquake forces can misalign elevator shafts, damage cables, disable power systems, and compromise safety mechanisms. Occupants trapped in an elevator during an aftershock face extreme danger. Always use stairways for evacuation. Even if the elevator appears to be functioning, it is not safe to use until the building has been inspected and cleared by qualified engineers.",
+      "related_steps": ["evacuate"],
+      "tags": ["constraint", "elevator", "critical", "safety"],
+      "related_constraints": ["no_elevator"]
+    },
+    {
+      "chunk_id": "kb_005",
+      "title": "Evacuation Route Verification",
+      "text": "Before beginning evacuation, verify that your planned evacuation route is safe and passable. Check that stairwells are intact and free of major debris. Look for signs of structural compromise such as large cracks in stair supports or blocked doorways. If the primary route is blocked or unsafe, identify an alternate route. Each floor should have at least two designated evacuation routes posted on emergency maps.",
+      "related_steps": ["check_route", "seek_alternate_exit"],
+      "tags": ["route_planning", "assessment", "critical"]
+    },
+    {
+      "chunk_id": "kb_006",
+      "title": "Alternate Exit Procedures",
+      "text": "If the primary evacuation route is blocked by debris, structural damage, or fire, locate an alternate exit immediately. Consult posted emergency floor plans if available. Do not attempt to clear heavy debris yourself, as this may cause further collapse. Secondary exits may include alternate stairwells, emergency exits on adjacent corridors, or in some cases, roof access for rescue. Never use elevators as an alternate exit.",
+      "related_steps": ["seek_alternate_exit", "check_route"],
+      "tags": ["route_planning", "alternate", "safety"]
+    },
+    {
+      "chunk_id": "kb_007",
+      "title": "Assisting Vulnerable and Injured Persons",
+      "text": "If it is safe to do so, check for and assist injured or vulnerable individuals before evacuating. Vulnerable persons include those with mobility impairments, young children, elderly occupants, and anyone who is disoriented or panicking. Provide basic first aid if trained and if the situation allows. Assist individuals who cannot self-evacuate. However, do not put yourself at significant risk — if assisting someone would endanger your life or block the evacuation route for others, call for professional help instead.",
+      "related_steps": ["assist_vulnerable", "support_injured"],
+      "tags": ["assistance", "first_aid", "vulnerable"]
+    },
+    {
+      "chunk_id": "kb_008",
+      "title": "Stairway Evacuation Procedure",
+      "text": "Evacuate using designated stairways in a calm, orderly manner. Walk, do not run. Keep to the right side of the stairway to allow emergency responders access on the left. Assist others as needed but maintain steady movement to prevent bottlenecks. Close doors behind you as you leave each floor to limit the spread of fire and smoke. Do not stop in the stairwell — continue to the ground floor and exit the building entirely.",
+      "related_steps": ["evacuate"],
+      "tags": ["evacuation", "stairs", "procedure"]
+    },
+    {
+      "chunk_id": "kb_009",
+      "title": "Assembly Point Procedure",
+      "text": "After exiting the building, proceed directly to the pre-designated assembly point. Assembly points are located at a safe distance from the building, away from structures that could collapse and clear of overhead hazards such as power lines or glass facades. Do not stop near the building entrance. Do not cross streets unnecessarily. Wait at the assembly point for further instructions from emergency coordinators or building management.",
+      "related_steps": ["reach_assembly_point"],
+      "tags": ["assembly", "post_evacuation", "safety"]
+    },
+    {
+      "chunk_id": "kb_010",
+      "title": "Headcount and Personnel Accountability",
+      "text": "Upon arrival at the assembly point, building wardens or designated personnel must conduct a headcount to account for all occupants. Compare the count against known occupancy or sign-in records. Identify any missing individuals immediately and report their last known location. Accurate accountability is critical for directing search-and-rescue efforts. Do not assume someone evacuated through another exit without confirmation.",
+      "related_steps": ["conduct_headcount"],
+      "tags": ["accountability", "headcount", "critical"]
+    },
+    {
+      "chunk_id": "kb_011",
+      "title": "Reporting to Emergency Services",
+      "text": "After the headcount, report the following information to the incident coordinator or arriving emergency services: number of evacuated individuals, missing persons with last known locations, observed injuries and their severity, structural damage observed during evacuation, any gas leaks or fire, and the status of the evacuation route. Clear and accurate reporting enables emergency responders to prioritize actions effectively.",
+      "related_steps": ["report_status"],
+      "tags": ["reporting", "communication", "emergency_services"]
+    },
+    {
+      "chunk_id": "kb_012",
+      "title": "Aftershock Awareness and Monitoring",
+      "text": "Aftershocks are smaller earthquakes that follow the main event. They may occur within minutes, hours, or days. Some aftershocks can be strong enough to cause additional structural damage or collapse. After reaching the assembly point, remain alert for aftershock activity. If you feel tremors, repeat the Drop, Cover, and Hold On response. Avoid standing near damaged structures or under overhangs.",
+      "related_steps": ["monitor_aftershocks"],
+      "tags": ["aftershocks", "post_evacuation", "safety"]
+    },
+    {
+      "chunk_id": "kb_013",
+      "title": "Building Re-Entry Prohibition",
+      "text": "Under no circumstances should anyone re-enter the building after evacuation until it has been inspected and officially cleared by emergency services or a structural engineer. Aftershocks can cause weakened structures to collapse without warning. Re-entry to retrieve personal belongings, documents, or equipment is strictly prohibited. If someone is believed to be trapped inside, report their location to emergency responders — do not attempt a rescue yourself.",
+      "related_steps": ["monitor_aftershocks"],
+      "tags": ["reentry", "constraint", "critical", "safety"],
+      "related_constraints": ["no_reentry"]
+    },
+    {
+      "chunk_id": "kb_014",
+      "title": "Running During an Earthquake",
+      "text": "Running during earthquake shaking is extremely dangerous. The ground motion can knock you off your feet, and falling debris, shattered glass, and toppling furniture pose an immediate strike hazard. The correct response is to drop to the ground, take cover, and hold on. Only begin moving after the shaking has completely stopped and you have assessed your immediate surroundings for hazards.",
+      "related_steps": ["drop_cover_hold", "wait_for_shaking_to_stop"],
+      "tags": ["safety", "immediate_response", "critical"],
+      "related_actions": ["run_outside_during_shaking"]
+    },
+    {
+      "chunk_id": "kb_015",
+      "title": "Smoke and Fire During Earthquake Evacuation",
+      "text": "Earthquakes can rupture gas lines and damage electrical systems, leading to fire and smoke. If you encounter smoke during evacuation, stay low to the ground where air is cleaner. Cover your nose and mouth with a cloth if possible. Do not open doors that are hot to the touch. If a stairwell is filled with smoke, close the door and seek an alternate route. Report any fire or smoke to emergency services immediately.",
+      "related_steps": ["check_route", "seek_alternate_exit", "assess_surroundings"],
+      "tags": ["fire", "smoke", "hazards", "evacuation"]
+    }
+  ]
+}

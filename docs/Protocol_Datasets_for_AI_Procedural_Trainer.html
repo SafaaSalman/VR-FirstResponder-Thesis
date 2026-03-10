@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Structured Protocol Datasets for AI Procedural Training in VR Disaster-Response Simulation</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a2e;
+      --heading: #0f3460;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --card-bg: #f8f9fc;
+      --card-border: #e0e4ed;
+      --table-header: #0f3460;
+      --table-header-text: #ffffff;
+      --table-alt: #f4f6fb;
+      --link: #2563eb;
+      --code-bg: #eef2f7;
+      --green: #16a34a;
+      --yellow: #d97706;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --border-radius: 8px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem;
+    }
+
+    /* Header */
+    header { border-bottom: 3px solid var(--accent); padding-bottom: 1.5rem; margin-bottom: 2.5rem; }
+    header h1 { font-size: 1.85rem; color: var(--heading); margin-bottom: 0.3rem; }
+    header .meta { color: #555; font-size: 0.95rem; }
+    header .meta strong { color: var(--text); }
+
+    /* TOC */
+    nav.toc { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--border-radius); padding: 1.25rem 1.75rem; margin-bottom: 2.5rem; }
+    nav.toc h2 { font-size: 1.1rem; color: var(--heading); margin-bottom: 0.6rem; }
+    nav.toc ol { padding-left: 1.3rem; }
+    nav.toc li { margin-bottom: 0.25rem; }
+    nav.toc a { text-decoration: none; color: var(--link); font-weight: 500; }
+    nav.toc a:hover { text-decoration: underline; }
+
+    /* Sections */
+    section { margin-bottom: 3rem; }
+    h2 { font-size: 1.55rem; color: var(--heading); border-bottom: 2px solid var(--card-border); padding-bottom: 0.4rem; margin-bottom: 1.2rem; }
+    h3 { font-size: 1.2rem; color: var(--accent2); margin: 1.5rem 0 0.7rem; }
+    h4 { font-size: 1.05rem; color: var(--text); margin: 1.2rem 0 0.5rem; }
+    p { margin-bottom: 0.9rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 0.9rem; }
+    li { margin-bottom: 0.35rem; }
+    a { color: var(--link); }
+    strong { font-weight: 600; }
+    code { background: var(--code-bg); padding: 0.15em 0.45em; border-radius: 4px; font-size: 0.88em; font-family: 'Cascadia Code', 'Fira Code', monospace; }
+
+    /* Tags */
+    .tag { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 0.15em 0.55em; border-radius: 4px; color: #fff; vertical-align: middle; margin-right: 0.15em; letter-spacing: 0.02em; white-space: nowrap; }
+    .tag-open     { background: var(--green); }
+    .tag-partial  { background: var(--yellow); }
+    .tag-restrict { background: var(--red); }
+    .tag-yes      { background: var(--green); }
+    .tag-no       { background: #9ca3af; }
+    .tag-convert  { background: var(--yellow); }
+    .tag-api      { background: var(--purple); }
+    .tag-domain   { background: var(--accent2); font-size: 0.68rem; }
+
+    /* Stars */
+    .stars { color: #f59e0b; font-size: 0.9rem; letter-spacing: 1px; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.8rem; border: 1px solid var(--card-border); border-radius: var(--border-radius); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; line-height: 1.5; }
+    thead th { background: var(--table-header); color: var(--table-header-text); font-weight: 600; padding: 0.65rem 0.7rem; text-align: left; white-space: nowrap; position: sticky; top: 0; z-index: 1; }
+    tbody td { padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+    tbody tr:nth-child(even) { background: var(--table-alt); }
+    tbody tr:hover { background: #edf2ff; }
+
+    /* Cards */
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--border-radius); padding: 1.3rem 1.5rem; margin-bottom: 1.5rem; }
+    .card h3 { margin-top: 0; margin-bottom: 0.8rem; }
+    .insight-box { background: #f0fdf4; border-left: 4px solid var(--green); padding: 0.8rem 1rem; margin-top: 0.8rem; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+    .insight-box strong { color: var(--green); }
+    .gap-box { background: #fff7ed; border-left: 4px solid var(--accent); padding: 0.8rem 1rem; margin-top: 0.8rem; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+    .gap-box strong { color: var(--accent); }
+    .thesis-box { background: #ede9fe; border-left: 4px solid var(--purple); padding: 0.8rem 1rem; margin-top: 0.8rem; border-radius: 0 var(--border-radius) var(--border-radius) 0; }
+    .thesis-box strong { color: var(--purple); }
+
+    /* Architecture */
+    .arch-diagram { background: #0f1729; color: #c8d6e5; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.75rem; line-height: 1.55; padding: 1.5rem 1.8rem; border-radius: var(--border-radius); overflow-x: auto; margin: 1rem 0 1.5rem; white-space: pre; }
+    .arch-diagram .hl { color: #7ee8fa; font-weight: 700; }
+    .arch-diagram .hl2 { color: #ecc94b; }
+
+    /* Tier cards */
+    .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .tier-card { border: 1px solid var(--card-border); border-radius: var(--border-radius); padding: 1.1rem 1.3rem; background: var(--card-bg); }
+    .tier-card h4 { margin-top: 0; }
+    .tier-card ul { padding-left: 1.2rem; font-size: 0.88rem; }
+    .tier-1 { border-top: 4px solid var(--green); }
+    .tier-2 { border-top: 4px solid var(--yellow); }
+    .tier-3 { border-top: 4px solid var(--purple); }
+
+    /* Print */
+    @media print {
+      body { padding: 1rem; font-size: 10pt; }
+      .table-wrap { overflow: visible; }
+      thead th { background: #333 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .tag { border: 1px solid #999; color: #333; background: #eee !important; }
+    }
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      header h1 { font-size: 1.3rem; }
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<header>
+  <h1>Structured Protocol Datasets for AI Procedural Training in VR Disaster-Response Simulation</h1>
+  <p class="meta">
+    <strong>Date:</strong> 3 March 2026 &nbsp;|&nbsp;
+    <strong>Purpose:</strong> Identify machine-readable or convertible protocol datasets, SOPs, and decision-tree guidelines suitable for training an AI procedural trainer in a VR disaster-response simulation.
+  </p>
+</header>
+
+<!-- ═══════════════ TOC ═══════════════ -->
+<nav class="toc">
+  <h2>Table of Contents</h2>
+  <ol>
+    <li><a href="#sec-ems">EMS / EMT / Triage Protocols</a></li>
+    <li><a href="#sec-mci">Mass Casualty &amp; CBRN Protocols</a></li>
+    <li><a href="#sec-clinical">Clinical Protocols (ACLS, BLS, TCCC, TECC)</a></li>
+    <li><a href="#sec-fire">Firefighting Operational SOPs</a></li>
+    <li><a href="#sec-ics">Incident Command System (ICS)</a></li>
+    <li><a href="#sec-hazmat">HAZMAT Response</a></li>
+    <li><a href="#sec-sar">Search &amp; Rescue</a></li>
+    <li><a href="#sec-evac">Evacuation &amp; Civil Defense</a></li>
+    <li><a href="#sec-military">Military &amp; Aviation Protocols</a></li>
+    <li><a href="#sec-databases">Incident Databases &amp; After-Action Reports</a></li>
+    <li><a href="#sec-transcripts">Emergency Call Transcripts &amp; Communication Corpora</a></li>
+    <li><a href="#sec-opentools">Open-Source Tools &amp; Structured Representations</a></li>
+    <li><a href="#sec-master">Master Comparison Table</a></li>
+    <li><a href="#sec-pipeline">AI Training Pipeline &amp; Prioritization</a></li>
+    <li><a href="#sec-architecture">Recommended Knowledge Architecture</a></li>
+  </ol>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1 — EMS / EMT / TRIAGE
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-ems">
+  <h2>1. EMS / EMT / Triage Protocols</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Dataset / Protocol Source</th>
+          <th>Organization</th>
+          <th>Domain</th>
+          <th>Format</th>
+          <th>Machine-Readable</th>
+          <th>Branching Logic</th>
+          <th>License</th>
+          <th>Link</th>
+          <th>AI Training Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>NEMSIS v3.5.1 Data Dictionary &amp; Public Dataset</strong></td>
+          <td>NHTSA / NEMSIS TAC</td>
+          <td><span class="tag tag-domain">EMS</span></td>
+          <td>XSD, XML, TXT enumerations, REST API, CSV</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-yes">YES</span> (care pathways implied via data elements)</td>
+          <td><span class="tag tag-open">Public Domain</span> (US Gov)</td>
+          <td><a href="https://nemsis.org/technical-resources/version-3/">nemsis.org</a></td>
+          <td><span class="stars">★★★★★</span> 11.5M+ annual records. XSD schemas define every EMS data element. Ideal for knowledge graphs, supervised fine-tuning on real patient encounters, and validation rule extraction.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>SALT Mass Casualty Triage Algorithm</strong></td>
+          <td>CDC / ASPR</td>
+          <td><span class="tag tag-domain">MCI Triage</span></td>
+          <td>PDF flowchart, textual description</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> ~8 decision nodes</td>
+          <td><span class="tag tag-open">Public Domain</span> (US Gov)</td>
+          <td><a href="https://chemm.hhs.gov/salttriage.htm">chemm.hhs.gov/salttriage</a></td>
+          <td><span class="stars">★★★★★</span> Compact decision tree, directly encodable as JSON FSM. Steps: Global Sort → Individual Assessment → Triage Category. Perfect for rule-based compliance checking and RL reward shaping.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>START Triage Algorithm</strong></td>
+          <td>Newport Beach Fire Dept / CDC CHEMM</td>
+          <td><span class="tag tag-domain">MCI Triage</span></td>
+          <td>PDF flowchart, text</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> ~6 decision nodes (RPM: Respiration, Perfusion, Mental status)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://chemm.hhs.gov/startadult.htm">chemm.hhs.gov/startadult</a></td>
+          <td><span class="stars">★★★★★</span> Classic 4-category triage. Can be encoded as a binary decision tree in &lt;30 min. Ideal baseline for triage compliance FSM.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>JumpSTART Pediatric MCI Triage</strong></td>
+          <td>Dr. Lou Romig / CHEMM</td>
+          <td><span class="tag tag-domain">Pediatric Triage</span></td>
+          <td>PDF flowchart</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> ~8 nodes (adds apneic child rescue breathing branch)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://chemm.hhs.gov/startpediatric.htm">chemm.hhs.gov/startpediatric</a></td>
+          <td><span class="stars">★★★★</span> Extension of START for pediatrics. Adds rescue breathing decision branch — good for scenario variation.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>NREMT Psychomotor Examination Skill Sheets</strong></td>
+          <td>NREMT</td>
+          <td><span class="tag tag-domain">EMT Certification</span></td>
+          <td>PDF checklists (step-by-step with critical criteria)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> Sequential + critical failure points</td>
+          <td><span class="tag tag-partial">Public Access</span> (copyrighted)</td>
+          <td><a href="https://www.nremt.org/Document/policy-psychomotor-exam">nremt.org</a></td>
+          <td><span class="stars">★★★★★</span> Gold standard for EMT skill evaluation. Each sheet = ordered procedure with mandatory steps and auto-fail criteria. Directly convertible to compliance checklist engine. Covers: Patient Assessment (Trauma/Medical), Cardiac Arrest (BVM), Spinal Immobilization, Bleeding Control, etc.</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>National EMS Education Standards</strong></td>
+          <td>NHTSA</td>
+          <td><span class="tag tag-domain">EMS Education</span></td>
+          <td>PDF (300+ pages)</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-no">NO</span> (competency descriptions, not procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.ems.gov/education-standards">ems.gov</a></td>
+          <td><span class="stars">★★★</span> Defines what EMTs must know/do at each level. Useful for AI curriculum planning and competency mapping, not direct procedure extraction.</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>NASEMSO National Model EMS Clinical Guidelines v3.0</strong></td>
+          <td>NASEMSO</td>
+          <td><span class="tag tag-domain">EMS Clinical</span></td>
+          <td>PDF (structured clinical guidelines with decision points)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (assessment → intervention pathways)</td>
+          <td><span class="tag tag-partial">Free Download</span> (copyrighted)</td>
+          <td><a href="https://nasemso.org/projects/model-ems-clinical-guidelines/">nasemso.org</a></td>
+          <td><span class="stars">★★★★★</span> The most comprehensive US prehospital protocol library. Covers 60+ clinical presentations (cardiac arrest, stroke, trauma, OB, peds, toxicology). Each guideline has assessment criteria → treatment algorithms → transport decisions. Essential for LLM fine-tuning and scenario generation.</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>State EMS Protocol Manuals</strong> (NY REMAC, CA EMSA, TX DSHS, etc.)</td>
+          <td>State EMS authorities</td>
+          <td><span class="tag tag-domain">EMS Clinical</span></td>
+          <td>PDF (with flowcharts and decision trees)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-open">Public Access</span></td>
+          <td>Varies by state (e.g., <a href="https://www.health.ny.gov/professionals/ems/policy/">NY</a>, <a href="https://emsa.ca.gov/protocols-and-procedures/">CA</a>)</td>
+          <td><span class="stars">★★★★</span> Region-specific protocols with local scope variations. Useful for training AI to handle protocol differences. Many include explicit flowcharts with medication dosing, assessment criteria, and transport triggers.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2 — MCI & CBRN
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-mci">
+  <h2>2. Mass Casualty &amp; CBRN Protocols</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9</td>
+          <td><strong>CHEMM-IST 2.0</strong> (Chemical Hazards Emergency Medical Management — Intelligent Syndromes Tool)</td>
+          <td>HHS / ASPR</td>
+          <td>Web app with <strong>JavaScript IF-THEN decision engine</strong>; downloadable offline ZIP (73 MB)</td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">JS Logic</span></td>
+          <td><span class="tag tag-yes">YES</span> (syndrome → agent identification trees)</td>
+          <td><span class="tag tag-open">Public Domain</span> (US Gov)</td>
+          <td><a href="https://chemm.hhs.gov/chemmist.htm">chemm.hhs.gov/chemmist</a></td>
+          <td><span class="stars">★★★★★</span> Existing expert system! JS decision logic can be reverse-engineered directly into rule-based engine. Maps signs/symptoms → chemical syndrome → treatment protocol. Perfect for HAZMAT VR scenario generation.</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><strong>CHEMM full site</strong> (treatment guides, antidote charts, decontamination procedures)</td>
+          <td>HHS / ASPR</td>
+          <td>HTML pages, PDF guides, downloadable ZIP</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (treatment decision paths per agent class)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://chemm.hhs.gov">chemm.hhs.gov</a></td>
+          <td><span class="stars">★★★★★</span> Covers nerve agents, blister agents, choking agents, blood agents, riot control. Each has: triage → decontamination → treatment algorithms. Entire site downloadable for offline use.</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td><strong>REMM</strong> (Radiation Emergency Medical Management)</td>
+          <td>HHS / ASPR / NLM</td>
+          <td>Web app with <strong>interactive decision tools</strong>; downloadable offline</td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">JS Logic</span></td>
+          <td><span class="tag tag-yes">YES</span> (dose-based triage reassignment, time-dependent branching)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://remm.hhs.gov">remm.hhs.gov</a></td>
+          <td><span class="stars">★★★★★</span> Unique time-dependent triage reassignment logic (Scarce Resources Triage Tool). Ideal for RL environments where scenario evolves over time. Contains: biodosimetry algorithms, treatment protocols, blast injury management.</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td><strong>WHO Mass Casualty Management Systems</strong></td>
+          <td>WHO</td>
+          <td>PDF manual</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-yes">YES</span> (MCI response phases, hospital surge algorithms)</td>
+          <td><span class="tag tag-open">Open Access</span></td>
+          <td><a href="https://www.who.int/publications/i/item/mass-casualty-management-systems">who.int</a></td>
+          <td><span class="stars">★★★</span> International standard. Useful for cross-cultural protocol variation and multi-agency coordination scenarios.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3 — CLINICAL (ACLS, BLS, TCCC, TECC)
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-clinical">
+  <h2>3. Clinical Protocols (ACLS, BLS, TCCC, TECC)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>13</td>
+          <td><strong>AHA ACLS Algorithm Suite</strong> (Cardiac Arrest, Bradycardia, Tachycardia, Post-Cardiac Arrest Care)</td>
+          <td>American Heart Association</td>
+          <td>PDF flowcharts (in ACLS Provider Manual)</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-yes">YES</span> (classic branching flowcharts)</td>
+          <td><span class="tag tag-restrict">Copyrighted</span></td>
+          <td><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines">cpr.heart.org</a></td>
+          <td><span class="stars">★★★★</span> ⚠️ Exact flowcharts copyrighted. However, algorithm <em>structure</em> (shockable vs. non-shockable → drugs → rhythm recheck loops) is encodable from published evidence/AHA guidelines documents. Essential for cardiac arrest VR training.</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td><strong>AHA BLS Algorithm</strong> (Adult/Pediatric/Infant)</td>
+          <td>AHA</td>
+          <td>PDF flowchart</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-yes">YES</span> (~6 decision nodes)</td>
+          <td><span class="tag tag-restrict">Copyrighted</span></td>
+          <td><a href="https://cpr.heart.org/en/resuscitation-science/cpr-and-ecc-guidelines">cpr.heart.org</a></td>
+          <td><span class="stars">★★★★</span> Simple but critical: Check response → Activate EMS → Check pulse → CPR/AED. Encodable from public knowledge. Multiple age variants add scenario branching.</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td><strong>TCCC Guidelines</strong> (Tactical Combat Casualty Care)</td>
+          <td>CoTCCC / Joint Trauma System (DHA)</td>
+          <td>PDF cards, PowerPoint, clinical practice guidelines</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (3-phase: Care Under Fire → Tactical Field Care → TACEVAC)</td>
+          <td><span class="tag tag-open">Public Domain</span> (US DoD)</td>
+          <td><a href="https://deployedmedicine.com/market/31">deployedmedicine.com</a></td>
+          <td><span class="stars">★★★★★</span> MARCH algorithm (Massive hemorrhage, Airway, Respiration, Circulation, Hypothermia). Well-structured 3-phase protocol with clear decision points. Deployed Medicine platform hosts all materials. Directly applicable to tactical VR training.</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td><strong>C-TECC Guidelines</strong> (Committee for Tactical Emergency Casualty Care)</td>
+          <td>C-TECC / NAEMT</td>
+          <td>PDF guidelines, skill sheets</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (3-phase: Direct Threat → Indirect Threat → Evacuation)</td>
+          <td><span class="tag tag-open">Free Access</span></td>
+          <td><a href="https://c-tecc.org/our-work/guidelines/">c-tecc.org</a></td>
+          <td><span class="stars">★★★★★</span> Civilian adaptation of TCCC for law enforcement, EMS, fire. Same MARCH framework adapted for active shooter/hostile events. Ideal for cross-domain VR scenario branching.</td>
+        </tr>
+        <tr>
+          <td>17</td>
+          <td><strong>Deployed Medicine Platform</strong></td>
+          <td>Defense Health Agency (DHA)</td>
+          <td>Web platform with structured CPGs, videos, skill sheets</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-open">Public Domain</span> (US Gov)</td>
+          <td><a href="https://deployedmedicine.com">deployedmedicine.com</a></td>
+          <td><span class="stars">★★★★</span> One-stop shop for TCCC + prolonged field care + Joint Trauma System CPGs. Web-structured content is scrapeable.</td>
+        </tr>
+        <tr>
+          <td>18</td>
+          <td><strong>WHO Emergency Medical Teams (EMT) Classification &amp; Minimum Standards</strong></td>
+          <td>WHO</td>
+          <td>PDF manual</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-yes">YES</span> (Type 1/2/3 capability matrices)</td>
+          <td><span class="tag tag-open">Open Access</span></td>
+          <td><a href="https://www.who.int/emergencies/partners/emergency-medical-teams">who.int/emt</a></td>
+          <td><span class="stars">★★★</span> International deployment standards. Useful for multi-team scenario design and capability-based resource allocation AI.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 4 — FIREFIGHTING SOPs
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-fire">
+  <h2>4. Firefighting Operational SOPs</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>19</td>
+          <td><strong>NFPA 1001 — Standard for Firefighter Professional Qualifications</strong></td>
+          <td>NFPA</td>
+          <td>PDF standard (Firefighter I &amp; II JPRs — Job Performance Requirements)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (sequential tasks with conditions and performance criteria)</td>
+          <td><span class="tag tag-restrict">Copyrighted</span> (free read-only online)</td>
+          <td><a href="https://www.nfpa.org/codes-and-standards/nfpa-1001-standard-development/1001">nfpa.org</a></td>
+          <td><span class="stars">★★★★</span> Defines every firefighter skill as: Requisite Knowledge + Requisite Skill + JPR (task, conditions, performance). Convertible to competency-based checklist engine. Covers: forcible entry, ventilation, SCBA, ladders, hose operations, search &amp; rescue.</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td><strong>NWCG Wildland Fire Standards</strong> (10 Standard Fire Orders, 18 Watch Out Situations, LCES)</td>
+          <td>National Wildfire Coordinating Group</td>
+          <td>PDF, web pages, IRPG pocket reference</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (LCES: Lookouts → Communications → Escape Routes → Safety Zones)</td>
+          <td><span class="tag tag-open">Public Domain</span> (US Gov)</td>
+          <td><a href="https://www.nwcg.gov/publications/training-courses/rt-130">nwcg.gov</a></td>
+          <td><span class="stars">★★★★★</span> Compact, well-defined rule sets. 10 Fire Orders and 18 Watch Out Situations are directly encodable as compliance rules. LCES provides a 4-element safety checklist that must be verified before engagement. Ideal for rule-based evaluation.</td>
+        </tr>
+        <tr>
+          <td>21</td>
+          <td><strong>NIOSH FFFIPP</strong> (Fire Fighter Fatality Investigation &amp; Prevention Program)</td>
+          <td>NIOSH / CDC</td>
+          <td>HTML reports (structured: summary, investigation, recommendations)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-no">NO</span> (narrative reports, not procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.cdc.gov/niosh/fire/">cdc.gov/niosh/fire</a></td>
+          <td><span class="stars">★★★★★</span> 400+ fatality investigation reports. Each identifies SOP violations that led to death. Perfect for <strong>negative-example training</strong>: "what went wrong" → extract failed protocol steps → AI learns to detect these errors. Scrapeable HTML format.</td>
+        </tr>
+        <tr>
+          <td>22</td>
+          <td><strong>Structural Firefighting SOPs</strong> (COAL WAS WEALTH size-up, offensive/defensive strategy decision tree)</td>
+          <td>Various fire departments (public domain SOPs widely shared)</td>
+          <td>PDF manuals, training materials</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (size-up → strategy decision → tactical assignments)</td>
+          <td><span class="tag tag-open">Varies</span></td>
+          <td>Multiple sources (e.g., <a href="https://www.usfa.fema.gov">usfa.fema.gov</a>)</td>
+          <td><span class="stars">★★★★</span> COAL WAS WEALTH mnemonic provides a structured size-up framework (Construction, Occupancy, Apparatus, Life hazard, Water, Area, Street, Weather, Exposures, Auxiliary, Location, Time). Decision tree: offensive vs. defensive based on conditions. Directly encodable.</td>
+        </tr>
+        <tr>
+          <td>23</td>
+          <td><strong>IFSAC / Pro Board Certification Skill Sheets</strong></td>
+          <td>IFSAC / Pro Board</td>
+          <td>PDF checklists</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (sequential + critical criteria)</td>
+          <td><span class="tag tag-partial">Public Access</span></td>
+          <td><a href="https://ifsac.org">ifsac.org</a></td>
+          <td><span class="stars">★★★★</span> Certification-level skill evaluation checklists for all NFPA 1001 JPRs. Each skill = ordered steps with pass/fail criteria. Similar value to NREMT sheets for EMS.</td>
+        </tr>
+        <tr>
+          <td>24</td>
+          <td><strong>NFIRS / NERIS</strong> (National Fire Incident Reporting System → National Emergency Response Information System)</td>
+          <td>USFA / FEMA</td>
+          <td>Database (transitioning from NFIRS to NERIS by 2026)</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-no">NO</span> (incident records, not procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.usfa.fema.gov/nfirs/">usfa.fema.gov/nfirs</a></td>
+          <td><span class="stars">★★★★</span> Millions of fire incident records. Structured data on incident type, building type, fire origin, fire spread, casualties, response times. Ideal for training AI scenario generator with realistic incident distributions and fire behavior patterns.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 5 — ICS
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-ics">
+  <h2>5. Incident Command System (ICS)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>25</td>
+          <td><strong>FEMA ICS Forms</strong> (ICS-201 through ICS-260, 30+ standardized forms)</td>
+          <td>FEMA / DHS</td>
+          <td>PDF fillable forms, Word templates</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (form completion depends on incident phase and ICS position)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://training.fema.gov/emiweb/is/icsresource/icsforms.htm">training.fema.gov</a></td>
+          <td><span class="stars">★★★★★</span> Core ICS documentation system. Key forms: ICS-201 (Incident Briefing), ICS-202 (Objectives), ICS-204 (Assignment List), ICS-205 (Communications Plan), ICS-206 (Medical Plan), ICS-214 (Activity Log), ICS-215 (Operational Planning). Each form has defined fields → directly mappable to structured data schema for AI validation.</td>
+        </tr>
+        <tr>
+          <td>26</td>
+          <td><strong>FEMA ICS/NIMS Training Courses</strong> (IS-100, IS-200, IS-700, IS-800, ICS-300, ICS-400)</td>
+          <td>FEMA EMI</td>
+          <td>Online courses (HTML), instructor guides (PDF)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (ICS organizational charts, span of control, transfer of command procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://training.fema.gov/is/courseoverview.aspx?code=IS-100.c">training.fema.gov</a></td>
+          <td><span class="stars">★★★★</span> Complete ICS training curriculum. Defines: establishing command → setting objectives → developing IAP → managing resources → demobilization. Each course has exam questions (test bank for evaluation AI).</td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td><strong>ICS Position Task Books (NQS)</strong></td>
+          <td>NWCG / FEMA</td>
+          <td>PDF (structured competency-based checklists per ICS position)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (task progression per position)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.nwcg.gov/publications/position-taskbooks">nwcg.gov</a></td>
+          <td><span class="stars">★★★★★</span> Defines every task an IC/Operations/Plans/Logistics/Finance Section Chief must perform. Each position = checklist of sequential tasks. Perfect for AI role evaluation in multi-player VR ICS training.</td>
+        </tr>
+        <tr>
+          <td>28</td>
+          <td><strong>ICS Job Aids &amp; Field Guides</strong></td>
+          <td>FEMA / NWCG</td>
+          <td>PDF pocket references</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://training.fema.gov/emiweb/is/icsresource/icsjobaid.htm">training.fema.gov</a></td>
+          <td><span class="stars">★★★★</span> Quick-reference decision aids for each ICS position. Includes: Incident Commander checklist, Safety Officer checklist, PIO checklist, Division/Group Supervisor checklist.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 6 — HAZMAT
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-hazmat">
+  <h2>6. HAZMAT Response</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>29</td>
+          <td><strong>ERG 2024</strong> (Emergency Response Guidebook)</td>
+          <td>DOT / PHMSA / Transport Canada</td>
+          <td>PDF, <strong>XLSX source tables</strong>, mobile app</td>
+          <td><span class="tag tag-yes">YES</span> (Excel tables)</td>
+          <td><span class="tag tag-yes">YES</span> (UN number → Guide # → isolation distances → protective actions)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.phmsa.dot.gov/hazmat/outreach-training/erg">phmsa.dot.gov/erg</a></td>
+          <td><span class="stars">★★★★★</span> 62 guide pages mapping hazard classes → response procedures. XLSX source files enable direct database import. Lookup chain: UN# → Guide → Fire/Spill/First Aid procedures + isolation/evacuation distances. Ideal for HAZMAT scenario generation and compliance checking.</td>
+        </tr>
+        <tr>
+          <td>30</td>
+          <td><strong>WISER</strong> (Wireless Information System for Emergency Responders)</td>
+          <td>NLM / NIH</td>
+          <td>Mobile app, web app with <strong>JavaScript decision engine</strong></td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">JS Logic</span></td>
+          <td><span class="tag tag-yes">YES</span> (substance identification via properties/symptoms)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://wiser.nlm.nih.gov">wiser.nlm.nih.gov</a></td>
+          <td><span class="stars">★★★★★</span> Field-deployable substance identification expert system. JavaScript decision logic for: unknown substance identification from physical properties and health effects → protective equipment → decontamination → treatment. Directly extractable decision trees.</td>
+        </tr>
+        <tr>
+          <td>31</td>
+          <td><strong>CAMEO / ALOHA Suite</strong></td>
+          <td>EPA / NOAA</td>
+          <td>Desktop software (5 programs), chemical database</td>
+          <td><span class="tag tag-yes">YES</span> (database)</td>
+          <td><span class="tag tag-yes">YES</span> (chemical reactivity prediction, threat zone modeling)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.epa.gov/cameo">epa.gov/cameo</a></td>
+          <td><span class="stars">★★★★</span> Chemical reactivity database can predict what happens when chemicals mix. ALOHA models atmospheric dispersion (threat zones). Data can feed VR hazard visualization and AI threat assessment.</td>
+        </tr>
+        <tr>
+          <td>32</td>
+          <td><strong>NIOSH Pocket Guide to Chemical Hazards (NPG)</strong></td>
+          <td>NIOSH / CDC</td>
+          <td>Searchable online database, PDF</td>
+          <td><span class="tag tag-yes">YES</span> (structured per-chemical records)</td>
+          <td><span class="tag tag-no">NO</span> (reference data, not procedural)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.cdc.gov/niosh/npg/">cdc.gov/niosh/npg</a></td>
+          <td><span class="stars">★★★</span> Hundreds of chemicals with exposure limits, PPE recommendations, first aid. Useful as lookup reference for HAZMAT scenario generation.</td>
+        </tr>
+        <tr>
+          <td>33</td>
+          <td><strong>OSHA HAZWOPER</strong> (29 CFR 1910.120) — PPE Level Decision Tree</td>
+          <td>OSHA / DOL</td>
+          <td>Regulation text + decision matrix</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (Level A/B/C/D selection based on hazard assessment)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.120">osha.gov</a></td>
+          <td><span class="stars">★★★★</span> PPE selection tree: Known IDLH? → Level A. Unknown but no skin hazard? → Level B. Known concentrations below IDLH? → Level C. Nuisance only? → Level D. Encodable as 4-branch decision tree.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 7 — SAR
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-sar">
+  <h2>7. Search &amp; Rescue</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>34</td>
+          <td><strong>FEMA USAR Field Operations Guide (FOG)</strong></td>
+          <td>FEMA</td>
+          <td>PDF (structured chapters on search phases, structural marking, personnel accounting)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (search phases: hasty → primary → secondary; structural triage marking)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.fema.gov/emergency-managers/national-preparedness/frameworks/urban-search-rescue">fema.gov/usar</a></td>
+          <td><span class="stars">★★★★★</span> Defines complete USAR operational workflow: mobilization → search → rescue → medical → logistics → demobilization. Structural marking system (single slash = search started, X = search complete, box = structural hazard) is directly encodable. Search phase progression is a clear state machine.</td>
+        </tr>
+        <tr>
+          <td>35</td>
+          <td><strong>INSARAG Guidelines 2020</strong> (International Search and Rescue Advisory Group)</td>
+          <td>UN OCHA</td>
+          <td>PDF (5 volumes), hosted on Google Drive</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (IEC → Mobilization → Operations → Demobilization phases)</td>
+          <td><span class="tag tag-open">Open Access</span></td>
+          <td><a href="https://www.insarag.org/methodology/insarag-guidelines/">insarag.org</a></td>
+          <td><span class="stars">★★★★</span> International USAR standard used by 80+ countries. 5-volume guideline covering: preparedness → response methodology → coordination → quality. Multilingual. Defines international USAR marking system.</td>
+        </tr>
+        <tr>
+          <td>36</td>
+          <td><strong>Swiftwater / Water Rescue SOPs</strong> (Reach-Throw-Row-Go hierarchy)</td>
+          <td>Various (NFPA 1006, fire departments)</td>
+          <td>PDF, training manuals</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (escalation hierarchy: Reach → Throw → Row → Go)</td>
+          <td><span class="tag tag-open">Varies</span></td>
+          <td>Multiple sources</td>
+          <td><span class="stars">★★★</span> Simple escalation decision tree based on risk assessment. Each step has preconditions (distance, water speed, equipment available). Useful for water rescue VR scenario branching.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 8 — EVACUATION & CIVIL DEFENSE
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-evac">
+  <h2>8. Evacuation &amp; Civil Defense</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>37</td>
+          <td><strong>CERT Training Materials</strong> (Community Emergency Response Team)</td>
+          <td>FEMA / Citizen Corps</td>
+          <td>PDF manuals, online courses (IS-317, IS-315)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (9-unit curriculum with skill checklists)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.ready.gov/cert">ready.gov/cert</a></td>
+          <td><span class="stars">★★★★</span> 9 training units: Disaster Preparedness, Fire Safety, Disaster Medical, Light SAR, CERT Organization, Disaster Psychology, Terrorism, Course Review, Drill. Each unit has structured objectives and skill checklists. Good entry-level protocol source.</td>
+        </tr>
+        <tr>
+          <td>38</td>
+          <td><strong>National Response Framework (NRF) &amp; 15 Emergency Support Functions (ESFs)</strong></td>
+          <td>FEMA / DHS</td>
+          <td>PDF framework documents</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (15 ESFs define organizational/functional response structure)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.fema.gov/emergency-managers/national-preparedness/frameworks/response">fema.gov/nrf</a></td>
+          <td><span class="stars">★★★</span> High-level framework defining how federal/state/local agencies coordinate. 15 ESFs (Transportation, Communications, Public Works, Firefighting, Emergency Management, Mass Care, Logistics, Public Health, USAR, Oil/HAZMAT, Agriculture, Energy, Public Safety, Long-Term Recovery, External Affairs). Useful for multi-agency VR scenario structure.</td>
+        </tr>
+        <tr>
+          <td>39</td>
+          <td><strong>CPG 101 — Developing and Maintaining Emergency Operations Plans</strong></td>
+          <td>FEMA</td>
+          <td>PDF guide</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-yes">YES</span> (planning process flowchart)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.fema.gov/emergency-managers/national-preparedness/plan">fema.gov/plan</a></td>
+          <td><span class="stars">★★★</span> Defines the template for all emergency operations plans. Useful for understanding how local EOPs are structured, enabling AI to parse and extract procedures from any EOP.</td>
+        </tr>
+        <tr>
+          <td>40</td>
+          <td><strong>FEMA Evacuation Planning Guides</strong> (evacuate vs. shelter-in-place decision framework)</td>
+          <td>FEMA</td>
+          <td>PDF</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (evacuate vs. shelter-in-place decision tree based on hazard type, time, population)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.fema.gov/emergency-managers/practitioners/integrated-public-alert-warning-system">fema.gov</a></td>
+          <td><span class="stars">★★★★</span> Decision framework: Hazard type × Time available × Population vulnerability → Evacuate / Shelter-in-Place / Shelter+Evacuate. Directly encodable as branching logic for VR civilian management scenarios.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 9 — MILITARY & AVIATION
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-military">
+  <h2>9. Military &amp; Aviation Protocols</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Protocol Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Branching Logic</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>41</td>
+          <td><strong>US Army TC 4-02.1 — First Aid</strong></td>
+          <td>US Army</td>
+          <td>PDF manual</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (MARCH-aligned casualty care procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://armypubs.army.mil">armypubs.army.mil</a></td>
+          <td><span class="stars">★★★</span> Military first aid procedures aligned with TCCC. Supplements TCCC for non-combat self/buddy aid.</td>
+        </tr>
+        <tr>
+          <td>42</td>
+          <td><strong>FAA Emergency Procedures &amp; CRM Training</strong></td>
+          <td>FAA</td>
+          <td>Advisory Circulars (PDF), training materials</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-yes">YES</span> (emergency checklists are canonical branching procedures)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.faa.gov/regulations_policies/advisory_circulars">faa.gov</a></td>
+          <td><span class="stars">★★★</span> Aviation emergency checklists (engine failure, fire, depressurization) are the gold standard of procedural compliance. CRM (Crew Resource Management) training materials transferable to multi-person emergency team training. Cross-domain applicability.</td>
+        </tr>
+        <tr>
+          <td>43</td>
+          <td><strong>NTSB Aviation Accident Database (CAROL Query)</strong></td>
+          <td>NTSB</td>
+          <td><strong>Downloadable Access database</strong>, web query system</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-no">NO</span> (incident records)</td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://data.ntsb.gov/carol-main-public/landing-page">data.ntsb.gov</a></td>
+          <td><span class="stars">★★★★★</span> Complete accident investigation database with structured fields: probable cause, contributing factors, findings. Downloadable as MS Access DB. Applicable for scenario generation and understanding failure modes. Cross-domain patterns transferable to emergency response.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 10 — INCIDENT DATABASES & AARs
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-databases">
+  <h2>10. Incident Databases &amp; After-Action Reports</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>44</td>
+          <td><strong>FEMA Disaster Declarations API</strong></td>
+          <td>FEMA / OpenFEMA</td>
+          <td><strong>JSON REST API</strong></td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">API</span></td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.fema.gov/api/open/v2/DisasterDeclarationsSummaries">fema.gov/api</a></td>
+          <td><span class="stars">★★★★★</span> Live REST API returning every US disaster declaration since 1953. JSON format with: disaster type, state, declaration date, programs activated. Can generate realistic scenario parameters (disaster type distribution by region/season).</td>
+        </tr>
+        <tr>
+          <td>45</td>
+          <td><strong>NEMSIS Public-Release Research Dataset</strong></td>
+          <td>NEMSIS TAC / NHTSA</td>
+          <td>CSV / SAS datasets (de-identified)</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-open">Public Domain</span> (data use agreement)</td>
+          <td><a href="https://nemsis.org/using-ems-data/request-research-data/">nemsis.org</a></td>
+          <td><span class="stars">★★★★★</span> ~11.5 million EMS patient care records per year. Structured data: chief complaint, vital signs, procedures performed, medications, transport disposition. Ideal for: supervised fine-tuning on real patient presentations, generating realistic VR patient profiles, validating AI treatment recommendations.</td>
+        </tr>
+        <tr>
+          <td>46</td>
+          <td><strong>EM-DAT</strong> (International Disaster Database)</td>
+          <td>CRED / UCLouvain</td>
+          <td>Downloadable database</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-partial">Free Access</span> (registration required)</td>
+          <td><a href="https://www.emdat.be">emdat.be</a></td>
+          <td><span class="stars">★★★★</span> 27,000+ disasters from 1900–present. Fields: disaster type, country, deaths, injuries, affected population, economic damage. Perfect for realistic scenario parameter generation and difficulty scaling.</td>
+        </tr>
+        <tr>
+          <td>47</td>
+          <td><strong>UN OCHA ReliefWeb + HDX</strong> (Humanitarian Data Exchange)</td>
+          <td>UN OCHA</td>
+          <td>JSON API (ReliefWeb), various (HDX)</td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">API</span></td>
+          <td><span class="tag tag-open">Open Access</span></td>
+          <td><a href="https://reliefweb.int/about-api">reliefweb.int/api</a> · <a href="https://data.humdata.org">data.humdata.org</a></td>
+          <td><span class="stars">★★★★</span> ReliefWeb API provides structured disaster reports, situation reports, maps. HDX hosts 20K+ humanitarian datasets. Rich source for realistic international disaster scenario data.</td>
+        </tr>
+        <tr>
+          <td>48</td>
+          <td><strong>CDC MMWR Emergency Response Case Studies</strong></td>
+          <td>CDC</td>
+          <td>HTML articles (structured)</td>
+          <td><span class="tag tag-convert">Convertible</span></td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.cdc.gov/mmwr/">cdc.gov/mmwr</a></td>
+          <td><span class="stars">★★★</span> After-action case studies of public health emergencies. Useful for generating realistic CBRN and mass casualty scenarios with epidemiological accuracy.</td>
+        </tr>
+        <tr>
+          <td>49</td>
+          <td><strong>NIST Fire Investigation Reports</strong> (WTC, Station Nightclub, Sofa Super Store, etc.)</td>
+          <td>NIST</td>
+          <td>PDF reports (very detailed)</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-open">Public Domain</span></td>
+          <td><a href="https://www.nist.gov/el/fire-research-division-73300/national-fire-research-laboratory-73306">nist.gov</a></td>
+          <td><span class="stars">★★★★</span> Extremely detailed fire behavior reconstruction with timeline, structural analysis, fire spread modeling. WTC reports are the most comprehensive fire investigations ever conducted. Useful for realistic fire scenario modeling.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 11 — TRANSCRIPTS & COMMUNICATION
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-transcripts">
+  <h2>11. Emergency Call Transcripts &amp; Communication Corpora</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Dataset / Source</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>License</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>50</td>
+          <td><strong>MPDS / ProQA</strong> (Medical Priority Dispatch System)</td>
+          <td>International Academies of Emergency Dispatch (IAED)</td>
+          <td>Proprietary protocol cards (structured IF-THEN dispatch algorithms)</td>
+          <td><span class="tag tag-no">NO</span></td>
+          <td><span class="tag tag-restrict">Proprietary</span></td>
+          <td><a href="https://www.emergencydispatch.org">emergencydispatch.org</a></td>
+          <td><span class="stars">★★★★</span> ⚠️ Gold standard structured dispatch protocols (33 chief complaint cards, each with key questions → determinant codes → pre-arrival instructions). Proprietary but the structure/concept is well-documented in published research. Protocol <em>structure</em> can be replicated for research.</td>
+        </tr>
+        <tr>
+          <td>51</td>
+          <td><strong>CrisisNLP / CrisisLex</strong></td>
+          <td>QCRI / Various researchers</td>
+          <td>Annotated tweet datasets (CSV, JSON)</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-open">Research Use</span></td>
+          <td><a href="https://crisisnlp.qcri.org">crisisnlp.qcri.org</a> · <a href="http://crisislex.org">crisislex.org</a></td>
+          <td><span class="stars">★★★★</span> Labeled crisis communication datasets: 60K+ tweets annotated for disaster type, informativeness, urgency. CrisisLex: 380K+ tweets from 6 disasters. Useful for training NLP models for: dispatch call understanding, situation report parsing, urgency classification.</td>
+        </tr>
+        <tr>
+          <td>52</td>
+          <td><strong>LDC Emergency Call Corpora</strong></td>
+          <td>Linguistic Data Consortium (UPenn)</td>
+          <td>Audio + transcripts</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><span class="tag tag-restrict">LDC Membership</span></td>
+          <td><a href="https://catalog.ldc.upenn.edu">catalog.ldc.upenn.edu</a></td>
+          <td><span class="stars">★★★</span> Contains some 911 call recordings with transcripts. Membership-gated. Useful for training STT models and understanding real emergency communication patterns.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 12 — OPEN-SOURCE TOOLS
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-opentools">
+  <h2>12. Open-Source Tools &amp; Structured Protocol Representations</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Tool / Standard</th><th>Organization</th><th>Format</th><th>Machine-Readable</th><th>Link</th><th>AI Training Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>53</td>
+          <td><strong>HL7 FHIR PlanDefinition</strong> (R4/R5)</td>
+          <td>HL7 International</td>
+          <td>JSON / XML (FHIR resource)</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><a href="https://www.hl7.org/fhir/plandefinition.html">hl7.org/fhir/plandefinition</a></td>
+          <td><span class="stars">★★★★★</span> <strong>Recommended canonical format</strong> for encoding emergency protocols in machine-readable form. PlanDefinition supports: sequential actions, conditions (IF-THEN), triggers, participants, timing constraints, related actions. Can represent any emergency protocol as a computable clinical pathway. Your thesis contribution: encode SALT/START/TCCC as FHIR PlanDefinitions.</td>
+        </tr>
+        <tr>
+          <td>54</td>
+          <td><strong>BioPortal Ontologies</strong> (ONTOLURGENCES, SNOMEDCT Emergency subset)</td>
+          <td>NCBO / Stanford</td>
+          <td>OWL, RDF, JSON-LD</td>
+          <td><span class="tag tag-yes">YES</span> <span class="tag tag-api">API</span></td>
+          <td><a href="https://bioportal.bioontology.org">bioportal.bioontology.org</a></td>
+          <td><span class="stars">★★★★</span> ONTOLURGENCES: 10,000+ classes for emergency medicine concepts. SNOMED CT: 375K+ clinical concepts with hierarchical relationships. Can serve as the vocabulary/terminology layer for knowledge graphs. REST API available for programmatic access.</td>
+        </tr>
+        <tr>
+          <td>55</td>
+          <td><strong>OpenMRS ProgramWorkflow</strong></td>
+          <td>OpenMRS Community</td>
+          <td>Java source code (state machine model)</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><a href="https://github.com/openmrs/openmrs-core">github.com/openmrs</a></td>
+          <td><span class="stars">★★★</span> Implements <code>ProgramWorkflow</code> with <code>ProgramWorkflowState</code> and <code>isLegalTransition()</code> method — a state machine model for clinical pathways. Architecture pattern directly applicable to protocol compliance engine. Open-source (MPL 2.0).</td>
+        </tr>
+        <tr>
+          <td>56</td>
+          <td><strong>OpenEMR Clinical Decision Rules Engine</strong></td>
+          <td>OpenEMR Community</td>
+          <td>PHP/SQL source code</td>
+          <td><span class="tag tag-yes">YES</span></td>
+          <td><a href="https://github.com/openemr/openemr">github.com/openemr</a></td>
+          <td><span class="stars">★★★</span> Open-source EHR with built-in clinical decision support rules engine. Code demonstrates how to implement IF-THEN clinical rules against patient data. Architecture reference for building protocol compliance checker.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="thesis-box">
+    <strong>🎓 Thesis Contribution Opportunity:</strong> No open-source repository currently exists for emergency response protocols in machine-readable format. Creating a pipeline that converts PDF-based protocols → HL7 FHIR PlanDefinition JSON → VR engine consumption would be a novel and citable contribution. The recommended representation chain: <strong>PDF SOP → structured extraction (LLM-assisted) → FHIR PlanDefinition JSON → Knowledge Graph (RDF/OWL) → VR Compliance Engine (FSM/Rule Engine)</strong>.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 13 — MASTER COMPARISON TABLE
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-master">
+  <h2>13. Master Comparison Table</h2>
+  <p>Summary across all 56 sources by key attributes:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Count</th>
+          <th>Sources</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fully Machine-Readable</strong></td>
+          <td>18</td>
+          <td>NEMSIS, CHEMM-IST, REMM, WISER, ERG (XLSX), NFIRS, FEMA API, NEMSIS Research, EM-DAT, ReliefWeb API, NTSB CAROL, CrisisNLP, FHIR PlanDefinition, BioPortal, OpenMRS, OpenEMR, CAMEO, NIOSH NPG</td>
+        </tr>
+        <tr>
+          <td><strong>Convertible to Machine-Readable</strong></td>
+          <td>28</td>
+          <td>SALT, START, JumpSTART, NREMT sheets, NASEMSO guidelines, State protocols, NFPA 1001, NWCG, IFSAC, ICS Forms, ICS courses, Position Task Books, ICS Job Aids, OSHA HAZWOPER, FEMA USAR FOG, INSARAG, Swiftwater, CERT, NRF/ESFs, CPG 101, FEMA Evacuation, TCCC, C-TECC, Deployed Medicine, WHO EMT, TC 4-02.1, FAA CRM, MMWR</td>
+        </tr>
+        <tr>
+          <td><strong>Contains Decision Trees / Branching Logic</strong></td>
+          <td>40</td>
+          <td>(All sources listed above except NFIRS, NEMSIS Research, EM-DAT, NTSB, NIST reports, CrisisNLP, LDC, NIOSH NPG, Nat'l EMS Education Standards)</td>
+        </tr>
+        <tr>
+          <td><strong>Public Domain (US Gov)</strong></td>
+          <td>32</td>
+          <td>All FEMA, NHTSA, CDC, HHS, OSHA, NWCG, NLM, NIST, NTSB, DHA, DOT, EPA, USFA, Army sources</td>
+        </tr>
+        <tr>
+          <td><strong>Has Live API</strong></td>
+          <td>5</td>
+          <td>NEMSIS, FEMA Disaster Declarations, ReliefWeb, BioPortal, HDX</td>
+        </tr>
+        <tr>
+          <td><strong>Has Extractable JavaScript Decision Logic</strong></td>
+          <td>3</td>
+          <td>CHEMM-IST 2.0, REMM, WISER</td>
+        </tr>
+        <tr>
+          <td><strong>Copyrighted / Restricted</strong></td>
+          <td>6</td>
+          <td>NFPA standards, AHA ACLS/BLS, MPDS/ProQA, LDC Corpora</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 14 — AI TRAINING PIPELINE
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-pipeline">
+  <h2>14. AI Training Pipeline &amp; Prioritization</h2>
+
+  <h3>Tiered Implementation Priority</h3>
+  <div class="tier-grid">
+    <div class="tier-card tier-1">
+      <h4 style="color: var(--green);">Tier 1 — Immediate (Machine-Readable, Public Domain, Decision Trees)</h4>
+      <ul>
+        <li><strong>SALT / START / JumpSTART triage</strong> → Encode as JSON FSMs (&lt;1 day each)</li>
+        <li><strong>CHEMM-IST 2.0</strong> → Extract JS decision engine (&lt;1 week)</li>
+        <li><strong>REMM decision tools</strong> → Extract JS logic (&lt;1 week)</li>
+        <li><strong>WISER substance ID</strong> → Extract JS decision trees (&lt;1 week)</li>
+        <li><strong>ERG 2024 XLSX tables</strong> → Import to database (&lt;1 day)</li>
+        <li><strong>FEMA ICS Forms</strong> → Schema extraction → structured validation rules (&lt;2 weeks)</li>
+        <li><strong>NWCG 10 Fire Orders + 18 WOS + LCES</strong> → Encode as compliance rules (&lt;1 day)</li>
+        <li><strong>FEMA Disaster Declarations API</strong> → Connect for scenario parameter generation (hours)</li>
+        <li><strong>TCCC MARCH algorithm</strong> → Encode as 3-phase FSM (&lt;1 day)</li>
+        <li><strong>C-TECC</strong> → Encode parallel to TCCC (&lt;1 day)</li>
+      </ul>
+    </div>
+    <div class="tier-card tier-2">
+      <h4 style="color: var(--yellow);">Tier 2 — Near-Term (Convertible, High-Value)</h4>
+      <ul>
+        <li><strong>NREMT Psychomotor Skill Sheets</strong> → Convert PDF checklists to structured JSON (1–2 weeks)</li>
+        <li><strong>NASEMSO Model Clinical Guidelines</strong> → LLM-assisted extraction of treatment algorithms (~60 protocols, 2–4 weeks)</li>
+        <li><strong>ICS Position Task Books</strong> → Convert to role-based competency checklists (1–2 weeks)</li>
+        <li><strong>FEMA USAR FOG</strong> → Extract search phases + marking system (1 week)</li>
+        <li><strong>INSARAG Guidelines</strong> → Extract operational phases (1 week)</li>
+        <li><strong>OSHA HAZWOPER PPE decision tree</strong> → Encode Level A/B/C/D selection (1 day)</li>
+        <li><strong>NIOSH FFFIPP reports</strong> → NLP extraction of failed protocol steps for negative examples (2–4 weeks)</li>
+        <li><strong>NEMSIS Research Dataset</strong> → Obtain for patient profile generation (1 week + data use agreement)</li>
+        <li><strong>CERT Training Materials</strong> → Extract skill checklists from 9 units (1 week)</li>
+      </ul>
+    </div>
+    <div class="tier-card tier-3">
+      <h4 style="color: var(--purple);">Tier 3 — Extended (Research/Cross-Domain)</h4>
+      <ul>
+        <li><strong>EM-DAT</strong> → Statistical modeling of disaster parameters for scenario generation</li>
+        <li><strong>NTSB CAROL database</strong> → Cross-domain failure pattern analysis</li>
+        <li><strong>CrisisNLP / CrisisLex</strong> → Train NLP models for emergency communication understanding</li>
+        <li><strong>BioPortal ontologies</strong> → Build knowledge graph vocabulary layer</li>
+        <li><strong>State EMS protocols</strong> → Protocol variation analysis for AI generalization testing</li>
+        <li><strong>AHA ACLS/BLS</strong> → Encode algorithm structure from public evidence (careful IP handling)</li>
+        <li><strong>FAA CRM materials</strong> → Cross-domain team communication training patterns</li>
+        <li><strong>WHO MCI / EMT standards</strong> → International protocol variation modeling</li>
+        <li><strong>NIST Fire Reports</strong> → Detailed fire behavior modeling for VR scenario realism</li>
+        <li><strong>NFIRS/NERIS incident data</strong> → Statistical fire incident modeling for scenario generation</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>AI Training Method Suitability Matrix</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>AI Training Method</th><th>Best Sources</th><th>Output</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Supervised Fine-Tuning</strong> (LLM)</td>
+          <td>NEMSIS patient records, NASEMSO guidelines, NREMT skill sheets, CrisisNLP</td>
+          <td>AI that understands EMS clinical decision-making, can generate realistic patient presentations, and evaluate trainee decisions</td>
+        </tr>
+        <tr>
+          <td><strong>Rule Extraction</strong> (Knowledge Graph / FSM)</td>
+          <td>SALT/START/TCCC decision trees, CHEMM-IST JS logic, ICS forms, NWCG Fire Orders, OSHA PPE levels, ERG guides</td>
+          <td>Deterministic protocol compliance checker; step-by-step validation; missed-step detection; incorrect-order detection</td>
+        </tr>
+        <tr>
+          <td><strong>Prompt-Based Evaluation</strong> (LLM-as-Judge)</td>
+          <td>NREMT skill sheets (scoring rubrics), ICS Position Task Books, NASEMSO guidelines</td>
+          <td>LLM evaluates open-ended trainee actions against protocol criteria; generates natural language feedback and debrief narratives</td>
+        </tr>
+        <tr>
+          <td><strong>Scenario Generation</strong> (PCG / RL)</td>
+          <td>FEMA Disaster API, EM-DAT, NFIRS, NEMSIS, NTSB, NIST fire reports, CAMEO/ALOHA</td>
+          <td>Statistically realistic disaster parameters; varied patient presentations; dynamic hazard evolution; adaptive difficulty based on trainee performance</td>
+        </tr>
+        <tr>
+          <td><strong>Reinforcement Learning Environment</strong></td>
+          <td>REMM time-dependent triage, SALT/START triage decisions, ICS resource allocation, evacuation decisions</td>
+          <td>RL agent learns optimal triage order, resource deployment, evacuation timing; reward shaped by protocol compliance + patient outcomes</td>
+        </tr>
+        <tr>
+          <td><strong>Negative Example Training</strong></td>
+          <td>NIOSH FFFIPP fatality reports, NTSB accident reports, NIST fire investigations</td>
+          <td>AI learns to detect dangerous deviations: SOP violations that historically led to fatalities; "what not to do" guardrails</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 15 — ARCHITECTURE
+     ═══════════════════════════════════════════════════ -->
+<section id="sec-architecture">
+  <h2>15. Recommended Knowledge Architecture</h2>
+
+  <div class="arch-diagram"><span class="hl">┌──────────────────────────────────────────────────────────────────────────┐</span>
+<span class="hl">│</span>                         <span class="hl2">DATA INGESTION LAYER</span>                             <span class="hl">│</span>
+<span class="hl">├─────────────┬──────────────┬──────────────┬──────────────┬───────────────┤</span>
+<span class="hl">│</span> PDF Protocols<span class="hl">│</span> JS Decision <span class="hl">│</span> Structured  <span class="hl">│</span> REST APIs   <span class="hl">│</span> Incident DBs  <span class="hl">│</span>
+<span class="hl">│</span> (NASEMSO,   <span class="hl">│</span> Engines     <span class="hl">│</span> Data        <span class="hl">│</span> (FEMA,      <span class="hl">│</span> (NFIRS, NTSB, <span class="hl">│</span>
+<span class="hl">│</span>  NREMT, ICS, <span class="hl">│</span> (CHEMM-IST, <span class="hl">│</span> (NEMSIS XSD,<span class="hl">│</span>  ReliefWeb, <span class="hl">│</span>  NIOSH FFFIPP,<span class="hl">│</span>
+<span class="hl">│</span>  TCCC, CERT) <span class="hl">│</span>  REMM, WISER)<span class="hl">│</span> ERG XLSX)  <span class="hl">│</span>  BioPortal) <span class="hl">│</span>  EM-DAT)      <span class="hl">│</span>
+<span class="hl">└──────┬──────┴──────┬───────┴──────┬───────┴──────┬───────┴───────┬───────┘</span>
+       │              │              │              │               │
+       ▼              ▼              ▼              ▼               ▼
+<span class="hl">┌──────────────────────────────────────────────────────────────────────────┐</span>
+<span class="hl">│</span>                     <span class="hl2">EXTRACTION &amp; NORMALIZATION</span>                          <span class="hl">│</span>
+<span class="hl">│</span>  • LLM-assisted PDF → structured extraction (GPT-4 + human review)      <span class="hl">│</span>
+<span class="hl">│</span>  • JS AST parsing → decision tree extraction                            <span class="hl">│</span>
+<span class="hl">│</span>  • XSD/XLSX → database schema mapping                                   <span class="hl">│</span>
+<span class="hl">│</span>  • API data normalization                                                <span class="hl">│</span>
+<span class="hl">│</span>  • NLP-based incident report analysis (failed protocol steps)            <span class="hl">│</span>
+<span class="hl">└──────────────────────────────────┬───────────────────────────────────────┘</span>
+                                   │
+                                   ▼
+<span class="hl">┌──────────────────────────────────────────────────────────────────────────┐</span>
+<span class="hl">│</span>               <span class="hl2">CANONICAL REPRESENTATION LAYER</span>                             <span class="hl">│</span>
+<span class="hl">│</span>                                                                          <span class="hl">│</span>
+<span class="hl">│</span>  ┌─────────────────┐  ┌──────────────────┐  ┌─────────────────────────┐ <span class="hl">│</span>
+<span class="hl">│</span>  │ <span class="hl2">FHIR             </span>│  │ <span class="hl2">Knowledge Graph  </span>│  │ <span class="hl2">Statistical Models      </span>│ <span class="hl">│</span>
+<span class="hl">│</span>  │ PlanDefinition   │  │ (RDF/OWL +       │  │ (incident distributions,│ <span class="hl">│</span>
+<span class="hl">│</span>  │ (JSON)           │  │  SNOMED CT +     │  │  patient profiles,      │ <span class="hl">│</span>
+<span class="hl">│</span>  │                  │  │  ONTOLURGENCES)  │  │  fire behavior params)  │ <span class="hl">│</span>
+<span class="hl">│</span>  │ = Protocol steps, │  │                  │  │                         │ <span class="hl">│</span>
+<span class="hl">│</span>  │   conditions,    │  │ = Concept        │  │ = Scenario generation   │ <span class="hl">│</span>
+<span class="hl">│</span>  │   branching,     │  │   relationships, │  │   parameters,           │ <span class="hl">│</span>
+<span class="hl">│</span>  │   timing         │  │   taxonomies     │  │   difficulty scaling    │ <span class="hl">│</span>
+<span class="hl">│</span>  └────────┬────────┘  └────────┬─────────┘  └────────────┬────────────┘ <span class="hl">│</span>
+<span class="hl">└───────────┼─────────────────────┼──────────────────────────┼────────────┘</span>
+            │                     │                          │
+            ▼                     ▼                          ▼
+<span class="hl">┌──────────────────────────────────────────────────────────────────────────┐</span>
+<span class="hl">│</span>                    <span class="hl2">VR SIMULATION ENGINE</span>                                   <span class="hl">│</span>
+<span class="hl">│</span>                                                                          <span class="hl">│</span>
+<span class="hl">│</span>  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐             <span class="hl">│</span>
+<span class="hl">│</span>  │ <span class="hl2">FSM Compliance </span>│  │ <span class="hl2">LLM Evaluator  </span>│  │ <span class="hl2">RL Scenario   </span>│             <span class="hl">│</span>
+<span class="hl">│</span>  │ Checker        │  │ &amp; Coach        │  │ Adapter        │             <span class="hl">│</span>
+<span class="hl">│</span>  │ (rule engine)  │  │ (fine-tuned)   │  │ (adaptive)     │             <span class="hl">│</span>
+<span class="hl">│</span>  └────────────────┘  └────────────────┘  └────────────────┘             <span class="hl">│</span>
+<span class="hl">│</span>                                                                          <span class="hl">│</span>
+<span class="hl">│</span>  Outputs: Step compliance ✓✗ │ Missed steps │ Wrong order │ Feedback    <span class="hl">│</span>
+<span class="hl">│</span>           Scenario variation  │ Difficulty adapt │ Debrief narrative      <span class="hl">│</span>
+<span class="hl">└──────────────────────────────────────────────────────────────────────────┘</span></div>
+
+  <h3>Domain Coverage Summary</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Domain</th><th>Open/Public Sources</th><th>Restricted Sources</th><th>Coverage Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>EMS / EMT Protocols</strong></td><td>6 (NEMSIS, SALT, START, JumpSTART, NASEMSO, State protocols)</td><td>1 (NREMT — copyrighted but publicly accessible)</td><td><span class="stars">★★★★★</span> Excellent — most complete domain</td></tr>
+        <tr><td><strong>MCI / CBRN</strong></td><td>4 (CHEMM-IST, CHEMM, REMM, WHO MCI)</td><td>0</td><td><span class="stars">★★★★★</span> Excellent — JS logic extractable</td></tr>
+        <tr><td><strong>Clinical (ACLS/BLS/TCCC)</strong></td><td>4 (TCCC, C-TECC, Deployed Medicine, WHO EMT)</td><td>2 (AHA ACLS/BLS)</td><td><span class="stars">★★★★</span> Good — TCCC public; AHA structure encodable</td></tr>
+        <tr><td><strong>Firefighting</strong></td><td>4 (NWCG, NIOSH FFFIPP, NFIRS, Structural SOPs)</td><td>2 (NFPA 1001, IFSAC)</td><td><span class="stars">★★★★</span> Good — public safety rules + negative examples</td></tr>
+        <tr><td><strong>ICS</strong></td><td>4 (ICS Forms, FEMA courses, Position Task Books, Job Aids)</td><td>0</td><td><span class="stars">★★★★★</span> Excellent — fully public domain</td></tr>
+        <tr><td><strong>HAZMAT</strong></td><td>5 (ERG, WISER, CAMEO, NIOSH NPG, OSHA HAZWOPER)</td><td>0</td><td><span class="stars">★★★★★</span> Excellent — multiple machine-readable sources</td></tr>
+        <tr><td><strong>SAR</strong></td><td>3 (FEMA USAR FOG, INSARAG, Swiftwater)</td><td>1 (NASAR)</td><td><span class="stars">★★★</span> Moderate — good structure but PDF-only</td></tr>
+        <tr><td><strong>Evacuation / Civil Defense</strong></td><td>4 (CERT, NRF/ESFs, CPG 101, FEMA Evacuation)</td><td>0</td><td><span class="stars">★★★★</span> Good — fully public domain</td></tr>
+        <tr><td><strong>Military / Aviation</strong></td><td>3 (TC 4-02.1, FAA, NTSB)</td><td>0</td><td><span class="stars">★★★</span> Moderate — cross-domain transfer value</td></tr>
+        <tr><td><strong>Incident Data</strong></td><td>6 (FEMA API, NEMSIS, EM-DAT, ReliefWeb, NIST, NTSB)</td><td>0</td><td><span class="stars">★★★★★</span> Excellent — rich data for scenario generation</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight-box">
+    <strong>Key Insight:</strong> 32 of 56 identified sources (57%) are <strong>US Government public domain</strong> — freely usable without licensing restrictions. The three most valuable immediate assets are the JavaScript-based expert systems (<strong>CHEMM-IST, REMM, WISER</strong>) which contain pre-built, extractable decision logic that can be directly integrated into a VR training AI.
+  </div>
+
+  <div class="gap-box">
+    <strong>Critical Gap:</strong> Despite 56 sources identified, <strong>zero</strong> provide emergency response protocols in a standardized machine-readable format designed for AI consumption. Every source requires manual or semi-automated conversion. The proposed solution — LLM-assisted extraction into HL7 FHIR PlanDefinition format — would create the first open-source machine-readable emergency protocol repository, a significant thesis contribution.
+  </div>
+</section>
+
+</body>
+</html>

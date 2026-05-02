@@ -673,4 +673,268 @@
     </mxGraphModel>
   </diagram>
 
+  <!-- ════════════════════════════════════════════════════════════════════
+       PAGE 4 — AI COMPONENTS OVERVIEW
+       Maps every point in the system where AI/LLM is used.
+       ════════════════════════════════════════════════════════════════════ -->
+  <diagram id="page4-ai-components" name="4 – AI Components">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ── Title ─────────────────────────────────────────────── -->
+        <mxCell id="ai_title" value="&lt;b&gt;AI Components in the Procedural Training System&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontColor=#1a1a2e;" vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="700" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai_sub" value="Five AI integration points across offline preparation and real-time training" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#555;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="42" width="600" height="22" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════════════════════════════
+             LEFT COLUMN — OFFLINE (Preparation Phase)
+             ══════════════════════════════════════════════════════════ -->
+        <mxCell id="offline_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9575CD;strokeWidth=2;arcSize=4;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="75" width="530" height="810" as="geometry"/>
+        </mxCell>
+        <mxCell id="offline_label" value="OFFLINE — Preparation Phase" style="text;html=1;strokeColor=none;fillColor=#9575CD;fontColor=#ffffff;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="280" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-1: Protocol Extraction Pipeline ────────────────── -->
+        <mxCell id="ai1_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F7FF;strokeColor=#5C6BC0;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="490" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1_tag" value="AI-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5C6BC0;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="128" width="45" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1_label" value="&lt;b&gt;Protocol Extraction Pipeline&lt;/b&gt;  (LLM-assisted)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#5C6BC0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="125" width="400" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- PDF input -->
+        <mxCell id="ai1_pdf" value="SOP / Protocol&lt;br&gt;PDF Documents" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#90CAF9;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="165" width="150" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- Extract -->
+        <mxCell id="ai1_extract" value="Text Extraction&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;(heading detection, table parsing)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8EAF6;strokeColor=#9FA8DA;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="200" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- LLM Structuring -->
+        <mxCell id="ai1_struct" value="&lt;b&gt;LLM Structuring&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Prose → protocol graph&lt;br&gt;(steps, branches, constraints)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1_struct_llm" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="218" y="302" width="38" height="18" as="geometry"/>
+        </mxCell>
+
+        <!-- KB Generation -->
+        <mxCell id="ai1_kb" value="&lt;b&gt;KB Generation&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;LLM extracts RAG chunks&lt;br&gt;from source paragraphs&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;strokeColor=#E65100;fontSize=11;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="300" y="300" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1_kb_llm" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="458" y="302" width="38" height="18" as="geometry"/>
+        </mxCell>
+
+        <!-- Outputs -->
+        <mxCell id="ai1_proto_out" value="Protocol JSON&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;(decision tree + knowledge graph)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#81C784;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="390" width="195" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1_kb_out" value="Knowledge Base JSON&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;(RAG chunks)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#81C784;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="390" width="180" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows inside AI-1 -->
+        <mxCell id="ai1a1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai1_pdf" target="ai1_extract">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1a2" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai1_extract" target="ai1_struct">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1a3" value="" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai1_extract" target="ai1_kb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="253"/>
+              <mxPoint x="280" y="330"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ai1a4" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai1_struct" target="ai1_proto_out">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai1a5" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai1_kb" target="ai1_kb_out">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-2: Scenario Generation ─────────────────────────── -->
+        <mxCell id="ai2_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F7FF;strokeColor=#5C6BC0;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="490" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai2_tag" value="AI-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5C6BC0;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="488" width="45" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai2_label" value="&lt;b&gt;Scenario Generation&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#5C6BC0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="485" width="250" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai2_llm" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="487" y="488" width="38" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai2_desc" value="LLM generates scenario variations (difficulty levels, environmental&lt;br&gt;conditions, branching triggers) from the protocol structure" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="55" y="515" width="460" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-5: VR Asset Generation ─────────────────────────── -->
+        <mxCell id="ai5_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F7FF;strokeColor=#5C6BC0;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="595" width="490" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai5_tag" value="AI-5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5C6BC0;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="50" y="603" width="45" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai5_label" value="&lt;b&gt;VR Environment Generation&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=14;fontColor=#5C6BC0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="600" width="330" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai5_gen" value="GenAI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="480" y="603" width="45" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai5_desc" value="AI-assisted generation of 3D assets, environments, and scene&lt;br&gt;layouts for VR training scenarios" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="55" y="630" width="460" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════════════════════════════
+             RIGHT COLUMN — REAL-TIME (Training Phase)
+             ══════════════════════════════════════════════════════════ -->
+        <mxCell id="runtime_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#66BB6A;strokeWidth=2;arcSize=4;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="580" y="75" width="590" height="810" as="geometry"/>
+        </mxCell>
+        <mxCell id="runtime_label" value="REAL-TIME — Training Phase" style="text;html=1;strokeColor=none;fillColor=#66BB6A;fontColor=#ffffff;align=center;verticalAlign=middle;fontSize=14;fontStyle=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="80" width="260" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- Trainee -->
+        <mxCell id="ai_trainee" value="&lt;b&gt;Trainee&lt;/b&gt;  (natural language)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;strokeColor=#90CAF9;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="125" width="210" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-3: NLU — Action Parser ─────────────────────────── -->
+        <mxCell id="ai3_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFB74D;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="610" y="200" width="250" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai3_tag" value="AI-3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="620" y="208" width="45" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai3_label" value="&lt;b&gt;NLU — Action Parser&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="670" y="205" width="180" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai3_llm" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="815" y="208" width="38" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai3_desc" value="Maps free text → action IDs&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;e.g. 'I take the elevator' → &lt;code&gt;[&quot;use_elevator&quot;]&lt;/code&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="625" y="240" width="225" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Rule Engine (deterministic — NOT AI) -->
+        <mxCell id="ai_rule" value="&lt;b&gt;Rule Engine&lt;/b&gt;  &lt;font style='font-size:10px;color:#999'&gt;(deterministic — not AI)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#EF9A9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="340" width="250" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-4a: RAG Retrieval ──────────────────────────────── -->
+        <mxCell id="ai4a_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFB74D;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="200" width="250" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4a_tag" value="AI-4a" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="910" y="208" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4a_label" value="&lt;b&gt;RAG — Retrieval&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="965" y="205" width="170" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4a_desc" value="Step-based retrieval (deterministic)&lt;br&gt;+ semantic fallback (embeddings)&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Fetches SOP text to ground responses&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="915" y="240" width="225" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ── AI-4b: NLG — Response Generation ──────────────────── -->
+        <mxCell id="ai4b_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FFB74D;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="330" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4b_tag" value="AI-4b" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=11;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="910" y="338" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4b_label" value="&lt;b&gt;NLG — Response Generation&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontColor=#E65100;" vertex="1" parent="1">
+          <mxGeometry x="965" y="335" width="180" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4b_llm" value="LLM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;fontSize=10;fontStyle=1;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="338" width="38" height="18" as="geometry"/>
+        </mxCell>
+        <mxCell id="ai4b_desc" value="LLM generates trainer feedback:&lt;br&gt;• Scene narration (valid action)&lt;br&gt;• Protocol correction (invalid action)&lt;br&gt;• Hint elaboration · Debrief writing&lt;br&gt;&lt;font style='font-size:10px;color:#666'&gt;Grounded in rule verdict + RAG evidence&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;fontSize=11;fontColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="915" y="370" width="225" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Scoring (deterministic — NOT AI) -->
+        <mxCell id="ai_score" value="&lt;b&gt;Scoring + Debrief&lt;/b&gt;  &lt;font style='font-size:10px;color:#999'&gt;(deterministic — not AI)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFEBEE;strokeColor=#EF9A9A;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="420" width="250" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- Trainer Response -->
+        <mxCell id="ai_response" value="&lt;b&gt;Trainer Response&lt;/b&gt;  (to trainee)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#BDBDBD;strokeWidth=2;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="610" y="510" width="210" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Arrows (right column) ─────────────────────────────── -->
+        <!-- Trainee → Parser -->
+        <mxCell id="aia1" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai_trainee" target="ai3_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Parser → Rule Engine -->
+        <mxCell id="aia2" value="action IDs" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=10;fontStyle=1;" edge="1" parent="1" source="ai3_box" target="ai_rule">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Rule Engine → RAG -->
+        <mxCell id="aia3" value="verdict" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai_rule" target="ai4a_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- RAG → NLG -->
+        <mxCell id="aia4" value="evidence" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#E65100;fontColor=#E65100;fontSize=10;fontStyle=1;" edge="1" parent="1" source="ai4a_box" target="ai4b_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Rule Engine → NLG -->
+        <mxCell id="aia5" value="verdict" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#C62828;fontColor=#C62828;fontSize=10;fontStyle=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai_rule" target="ai4b_box">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Rule Engine → Scoring -->
+        <mxCell id="aia6" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai_rule" target="ai_score">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- NLG → Response -->
+        <mxCell id="aia7" value="natural&lt;br&gt;language" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#2E7D32;fontColor=#2E7D32;fontSize=10;fontStyle=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai4b_box" target="ai_response">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Scoring → Response -->
+        <mxCell id="aia8" value="" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=2;strokeColor=#333;" edge="1" parent="1" source="ai_score" target="ai_response">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ── Offline → Runtime arrows ──────────────────────────── -->
+        <mxCell id="cross1" value="feeds protocol" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#7B1FA2;fontColor=#7B1FA2;fontSize=10;fontStyle=1;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai1_proto_out" target="ai_rule">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="415"/>
+              <mxPoint x="565" y="363"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cross2" value="feeds KB" style="endArrow=block;endFill=1;html=1;rounded=1;strokeWidth=2;strokeColor=#7B1FA2;fontColor=#7B1FA2;fontSize=10;fontStyle=1;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ai1_kb_out" target="ai4a_box">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="565" y="415"/>
+              <mxPoint x="565" y="160"/>
+              <mxPoint x="1025" y="160"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
 </mxfile>

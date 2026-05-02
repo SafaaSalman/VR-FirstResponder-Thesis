@@ -117,28 +117,39 @@ class ScoringEngine:
     # ── Dimension implementations ──────────────────────────────────────────
 
     def _score_sequence_adherence(self, completed: set) -> float:
-        """How well did the trainee follow the correct step order?"""
+        """How well did the trainee follow the correct step order?
+
+        Uses the Longest Common Subsequence (LCS) between the trainee's
+        action order and the **full** protocol step list, divided by total
+        protocol steps.  This correctly penalises both skipped steps and
+        out-of-order actions.
+        """
         if not self.state.progress.actions_taken:
             return 0
 
-        ordered_completed = [
+        ordered_actions = [
             a["action"]
             for a in self.state.progress.actions_taken
             if a["result"].get("validity") == "valid"
         ]
-        if not ordered_completed:
+        if not ordered_actions:
             return 0
 
-        # Check if completed steps appear in protocol order
-        expected_order = [
-            s for s in self._all_steps if s in completed
-        ]
-        matches = 0
-        for i, step_id in enumerate(ordered_completed):
-            if i < len(expected_order) and step_id == expected_order[i]:
-                matches += 1
+        # Compare against the FULL protocol step list, not just completed
+        ref = self._all_steps
+        n, m = len(ref), len(ordered_actions)
 
-        return (matches / max(len(expected_order), 1)) * 100
+        # LCS via dynamic programming
+        dp = [[0] * (m + 1) for _ in range(n + 1)]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if ref[i - 1] == ordered_actions[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
+        lcs_len = dp[n][m]
+        return (lcs_len / max(n, 1)) * 100
 
     def _score_critical_compliance(
         self, completed: set, violations: list

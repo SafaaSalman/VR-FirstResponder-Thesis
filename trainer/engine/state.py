@@ -123,3 +123,94 @@ class ScenarioState:
             label = key.replace("_", " ").title()
             lines.append(f"  - {label}: {val}")
         return "\n".join(lines)
+
+    def get_dynamic_narrative(self) -> dict:
+        """Build a phase-aware narrative that evolves with the world state.
+
+        Returns a dict with 'location', 'environment', 'people',
+        and 'phase_context' — replacing the static initial narrative
+        for LLM context.
+        """
+        s = self.state
+        base = dict(self.narrative)  # start from static narrative
+        phase = self._current_phase()
+
+        # ── Location shifts based on progress ──────────────────────
+        if s.get("assembly_point_reached"):
+            base["location"] = (
+                f"Assembly point outside {self.narrative.get('location', 'the building')}. "
+                f"You are outdoors, at a safe distance from the structure."
+            )
+        elif not s.get("inside_building", True):
+            base["location"] = (
+                f"Just outside {self.narrative.get('location', 'the building')}. "
+                f"You are in the process of moving to the assembly point."
+            )
+
+        # ── Environment evolves ────────────────────────────────────
+        env_parts = []
+        if s.get("shaking_active"):
+            env_parts.append(
+                "The ground is shaking violently. Objects are falling, "
+                "lights swaying, and people are screaming."
+            )
+        else:
+            env_parts.append("The shaking has stopped.")
+            damage = s.get("building_damage", "light")
+            if damage == "light":
+                env_parts.append(
+                    "Minor cracks in the ceiling, some items on the floor, "
+                    "but the structure appears stable."
+                )
+            elif damage == "moderate":
+                env_parts.append(
+                    "Visible cracks in walls, debris on the floor, "
+                    "some ceiling tiles fallen.  The structure may be "
+                    "compromised."
+                )
+            else:
+                env_parts.append(
+                    "Severe structural damage — cracked walls, collapsed "
+                    "ceiling sections, heavy debris.  The building is "
+                    "clearly unsafe."
+                )
+
+        if s.get("smoke_present"):
+            env_parts.append("There is a smell of smoke in the air.")
+        if s.get("assembly_point_reached"):
+            env_parts.append(
+                "You are at the outdoor assembly area.  The building "
+                "stands behind you; fresh air, open sky above."
+            )
+        if s.get("aftershock_risk"):
+            env_parts.append(
+                "Occasional rumbles hint at possible aftershocks."
+            )
+
+        base["environment"] = " ".join(env_parts)
+
+        # ── People description evolves ─────────────────────────────
+        if s.get("assembly_point_reached"):
+            count = s.get("occupant_count", "many")
+            headcount = "accounted for" if s.get("headcount_completed") else "gathering"
+            base["people_nearby"] = (
+                f"Approximately {count} evacuees are {headcount} "
+                f"at the assembly point, some anxious, some helping "
+                f"each other."
+            )
+
+        # ── Phase context (tells the LLM where we are) ────────────
+        base["phase_context"] = phase
+        base["current_step"] = self.progress.current_step
+
+        return base
+
+    def _current_phase(self) -> str:
+        """Return a human-readable phase description."""
+        step = self.progress.current_step
+        if not step:
+            return "post_completion"
+        for s in self.protocol.get("steps", []):
+            if s["id"] == step:
+                return s.get("phase", "unknown")
+        return "unknown"

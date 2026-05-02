@@ -15,7 +15,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env and paste your key
 
-# 3. Run
+# 3a. Run CLI chat
 python -m trainer
 
 # Or pick a specific scenario
@@ -23,7 +23,24 @@ python -m trainer --scenario eq_blocked_route
 
 # List available scenarios
 python -m trainer --list-scenarios
+
+# 3b. Run Web UI (admin/debug interface)
+python -m uvicorn trainer.web.server:app --reload --port 8000
+# Then open http://localhost:8000 in your browser
 ```
+
+## Virsual Env
+
+cd "c:\Users\pcs\Desktop\Folders\Uni\Thesis\Code\VR-FirstResponder-Thesis"
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate it
+.\venv\Scripts\Activate
+
+# Install dependencies inside the env
+pip install -r requirements.txt
 
 ## Architecture
 

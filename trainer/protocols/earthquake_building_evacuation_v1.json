@@ -39,7 +39,7 @@
       "type": "action",
       "description": "Drop to the ground, take cover under sturdy furniture, and hold on until shaking stops.",
       "preconditions": ["shaking_active == true"],
-      "effects": [],
+      "effects": ["in_cover = true"],
       "allowed_next": ["wait_for_shaking_to_stop"],
       "critical": true,
       "phase": "immediate_response"
@@ -59,7 +59,7 @@
       "type": "action",
       "description": "Assess immediate surroundings for hazards: structural damage, fallen debris, fire, gas leaks.",
       "preconditions": ["shaking_active == false"],
-      "effects": [],
+      "effects": ["hazards_assessed = true"],
       "allowed_next": ["check_route"],
       "critical": true,
       "phase": "assessment"
@@ -69,6 +69,7 @@
       "type": "decision",
       "description": "Verify that the evacuation route is safe and passable.",
       "preconditions": ["shaking_active == false"],
+      "effects": ["route_checked = true"],
       "conditions": [
         {
           "if": "stairs_accessible == true",
@@ -87,7 +88,7 @@
       "type": "action",
       "description": "Primary route is blocked. Identify and use an alternate safe exit.",
       "preconditions": ["stairs_accessible == false"],
-      "effects": [],
+      "effects": ["alternate_route_found = true"],
       "allowed_next": ["assist_vulnerable"],
       "critical": true,
       "phase": "route_planning"
@@ -125,7 +126,7 @@
       "type": "action",
       "description": "Evacuate through the designated safe route using stairs or approved exits. Do not use elevators.",
       "preconditions": ["shaking_active == false"],
-      "effects": [],
+      "effects": ["inside_building = false"],
       "allowed_next": ["reach_assembly_point"],
       "critical": true,
       "phase": "evacuation"
@@ -155,7 +156,7 @@
       "type": "action",
       "description": "Report all injuries, missing persons, and observed hazards to the incident coordinator or emergency services.",
       "preconditions": ["headcount_completed == true"],
-      "effects": [],
+      "effects": ["status_reported = true"],
       "allowed_next": ["monitor_aftershocks"],
       "critical": false,
       "phase": "reporting"

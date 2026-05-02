@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procedural Trainer — Admin Debug UI</title>
+<style>
+/* ── Reset & base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #f5f6f8;
+  --surface:  #ffffff;
+  --surface2: #eef0f4;
+  --border:   #d0d5dd;
+  --text:     #1a1d27;
+  --dim:      #5f6b7a;
+  --accent:   #2563eb;
+  --green:    #16a34a;
+  --red:      #dc2626;
+  --orange:   #ea580c;
+  --yellow:   #ca8a04;
+  --cyan:     #0891b2;
+  --purple:   #7c3aed;
+  --radius:   8px;
+  --font:     'Segoe UI', system-ui, -apple-system, sans-serif;
+  --mono:     'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; }
+a { color: var(--accent); }
+
+/* ── Layout ───────────────────────────────────────────── */
+#app {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  grid-template-rows: 48px 1fr;
+  height: 100vh;
+  gap: 0;
+}
+
+/* ── Top bar ──────────────────────────────────────────── */
+#topbar {
+  grid-column: 1 / -1;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 16px;
+  z-index: 10;
+}
+#topbar h1 { font-size: 15px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+#topbar .sep { width: 1px; height: 24px; background: var(--border); }
+#topbar select, #topbar button {
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 5px 12px;
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color .15s;
+}
+#topbar select:hover, #topbar button:hover { border-color: var(--accent); }
+#topbar button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+#topbar button.primary:hover { background: #4a8be5; }
+#topbar .badge {
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.badge-beginner   { background: #dcfce7; color: #166534; }
+.badge-intermediate { background: #fef9c3; color: #854d0e; }
+.badge-advanced   { background: #fef2f2; color: #991b1b; }
+
+/* ── Left panel: Chat ─────────────────────────────────── */
+#chat-panel {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  overflow: hidden;
+}
+#chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.msg {
+  max-width: 92%;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  line-height: 1.5;
+  font-size: 13px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.msg-trainer {
+  align-self: flex-start;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+.msg-trainee {
+  align-self: flex-end;
+  background: #dbeafe;
+  border: 1px solid #93c5fd;
+  color: #1e3a5f;
+}
+.msg-system {
+  align-self: center;
+  background: transparent;
+  color: var(--dim);
+  font-style: italic;
+  font-size: 12px;
+  text-align: center;
+}
+.msg-label {
+  font-size: 11px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.msg-trainer .msg-label { color: var(--green); }
+.msg-trainee .msg-label { color: var(--accent); }
+
+/* Chat input */
+#chat-input-area {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+#chat-input {
+  flex: 1;
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 8px 12px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color .15s;
+  resize: none;
+  line-height: 1.5;
+}
+#chat-input:focus { border-color: var(--accent); }
+#chat-input:disabled { opacity: .5; }
+#send-btn {
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 8px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .15s;
+}
+#send-btn:hover { background: #4a8be5; }
+#send-btn:disabled { opacity: .5; cursor: not-allowed; }
+.quick-actions {
+  padding: 6px 16px 0;
+  display: flex;
+  gap: 6px;
+}
+.quick-btn {
+  font-family: var(--font);
+  font-size: 11px;
+  padding: 4px 10px;
+  background: var(--surface2);
+  color: var(--dim);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.quick-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* ── Right panel: tabs ────────────────────────────────── */
+#right-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#right-tabs {
+  display: flex;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 10px 20px;
+  background: none;
+  color: var(--dim);
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all .15s;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.tab-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: none;
+}
+.tab-content.active { display: block; }
+
+/* ── Protocol Tree ────────────────────────────────────── */
+#tree-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 10px 0;
+}
+.tree-node {
+  position: relative;
+  width: 500px;
+  max-width: 95%;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--surface2);
+  transition: all .2s;
+  cursor: default;
+}
+.tree-node:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(91, 156, 246, .15);
+}
+
+/* Status colors */
+.tree-node.status-completed {
+  border-color: var(--green);
+  background: #dcfce7;
+}
+.tree-node.status-current {
+  border-color: var(--yellow);
+  background: #fef9c3;
+  box-shadow: 0 0 16px rgba(202, 138, 4, .15);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(202, 138, 4, .1); }
+  50% { box-shadow: 0 0 20px rgba(202, 138, 4, .2); }
+}
+.tree-node.status-pending {
+  border-color: var(--border);
+  opacity: .6;
+}
+.tree-node.has-violation {
+  border-color: var(--red) !important;
+  background: #fef2f2 !important;
+  opacity: 1 !important;
+}
+
+.tree-step-id {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  margin-bottom: 4px;
+}
+.tree-desc {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.tree-badges {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.tree-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+.tree-badge-phase { background: #e0f2fe; color: var(--cyan); }
+.tree-badge-critical { background: #fef2f2; color: var(--red); }
+.tree-badge-decision { background: #f3e8ff; color: var(--purple); }
+.tree-badge-terminal { background: var(--surface2); color: var(--dim); }
+.tree-badge-status-completed { background: #dcfce7; color: var(--green); }
+.tree-badge-status-current { background: #fef9c3; color: var(--yellow); }
+.tree-badge-status-violation { background: #fef2f2; color: var(--red); }
+
+/* Branch indicators */
+.tree-branch {
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: var(--bg);
+  border-radius: 4px;
+}
+.tree-branch.active-branch { color: var(--green); }
+
+/* Connector lines */
+.tree-connector {
+  width: 2px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 auto;
+}
+.tree-connector.completed { background: var(--green); }
+.tree-connector.current { background: var(--yellow); }
+
+/* ── Constraints ──────────────────────────────────────── */
+#constraints-container {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+#constraints-container h3 {
+  font-size: 13px;
+  color: var(--dim);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.constraint-item {
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.constraint-item.violated {
+  border-color: var(--red);
+  background: #fef2f2;
+}
+.constraint-icon { font-size: 16px; }
+.constraint-item.violated .constraint-icon::after { content: '✗'; color: var(--red); }
+.constraint-item:not(.violated) .constraint-icon::after { content: '✓'; color: var(--green); }
+
+/* ── Debug panel ──────────────────────────────────────── */
+#debug-content {
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.debug-turn {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.debug-turn-header {
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.debug-turn-header:hover { background: #e2e6ee; }
+.debug-turn-body {
+  padding: 12px;
+  background: var(--bg);
+}
+.debug-section {
+  margin-bottom: 10px;
+}
+.debug-section-label {
+  font-size: 11px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+}
+.debug-json {
+  background: var(--surface2);
+  padding: 8px 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--dim);
+  line-height: 1.5;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.debug-json .key   { color: var(--cyan); }
+.debug-json .str   { color: var(--green); }
+.debug-json .num   { color: var(--orange); }
+.debug-json .bool  { color: var(--purple); }
+.debug-json .null  { color: var(--dim); }
+
+/* ── Scores panel ─────────────────────────────────────── */
+.scores-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.score-card {
+  padding: 14px;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.score-card.overall {
+  grid-column: 1 / -1;
+  border-color: var(--accent);
+  background: #eff6ff;
+}
+.score-label {
+  font-size: 11px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+.score-value {
+  font-size: 26px;
+  font-weight: 700;
+}
+.score-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bg);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .5s ease;
+}
+
+/* ── State panel ──────────────────────────────────────── */
+.state-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.state-item {
+  padding: 10px 12px;
+  background: var(--surface2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.state-key {
+  font-size: 11px;
+  color: var(--dim);
+  font-family: var(--mono);
+}
+.state-val {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.state-val.val-true { color: var(--green); }
+.state-val.val-false { color: var(--red); }
+
+/* ── Loading spinner ──────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #98a2b3; }
+
+/* ── Start overlay ────────────────────────────────────── */
+#start-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(245, 246, 248, .9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+#start-overlay.hidden { display: none; }
+.start-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 36px 40px;
+  text-align: center;
+  max-width: 420px;
+}
+.start-card h2 { font-size: 20px; margin-bottom: 6px; color: var(--accent); }
+.start-card p { color: var(--dim); margin-bottom: 20px; font-size: 13px; }
+.start-card select { width: 100%; margin-bottom: 16px; padding: 10px; font-size: 14px; }
+.start-card button { width: 100%; padding: 12px; font-size: 15px; }
+</style>
+</head>
+<body>
+
+<!-- ── Start overlay ────────────────────────────────── -->
+<div id="start-overlay">
+  <div class="start-card">
+    <h2>Procedural Trainer</h2>
+    <p>Select a scenario to begin the training session.</p>
+    <select id="scenario-select">
+      <option value="">Loading scenarios...</option>
+    </select>
+    <button class="primary" id="start-btn" onclick="startSession()">Start Session</button>
+  </div>
+</div>
+
+<!-- ── Main app ─────────────────────────────────────── -->
+<div id="app">
+
+  <!-- Top bar -->
+  <div id="topbar">
+    <h1>&#9763; Procedural Trainer — Debug UI</h1>
+    <div class="sep"></div>
+    <span id="tb-scenario" style="font-size:13px;color:var(--dim)">No session</span>
+    <span id="tb-badge"></span>
+    <div style="flex:1"></div>
+    <button onclick="requestDebrief()">Debrief</button>
+    <button onclick="resetSession()" style="color:var(--red)">Reset</button>
+  </div>
+
+  <!-- Left: Chat -->
+  <div id="chat-panel">
+    <div id="chat-messages">
+      <div class="msg msg-system">Start a session to begin chatting.</div>
+    </div>
+    <div class="quick-actions">
+      <button class="quick-btn" onclick="sendQuick('hint')">💡 Hint</button>
+      <button class="quick-btn" onclick="fetchStatus()">📊 Status</button>
+    </div>
+    <div id="chat-input-area">
+      <textarea id="chat-input" rows="3" placeholder="Describe your action..." disabled
+               onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAction()}"></textarea>
+      <button id="send-btn" onclick="sendAction()" disabled>Send</button>
+    </div>
+  </div>
+
+  <!-- Right: Tabs -->
+  <div id="right-panel">
+    <div id="right-tabs">
+      <button class="tab-btn active" onclick="switchTab('tree')">Protocol Tree</button>
+      <button class="tab-btn" onclick="switchTab('scores')">Scores</button>
+      <button class="tab-btn" onclick="switchTab('state')">World State</button>
+      <button class="tab-btn" onclick="switchTab('debug')">Debug Log</button>
+    </div>
+
+    <!-- Tab: Protocol Tree -->
+    <div id="tab-tree" class="tab-content active">
+      <div id="tree-container">
+        <p style="color:var(--dim)">Start a session to see the protocol tree.</p>
+      </div>
+      <div id="constraints-container" style="display:none">
+        <h3>Global Constraints</h3>
+        <div id="constraints-list"></div>
+      </div>
+    </div>
+
+    <!-- Tab: Scores -->
+    <div id="tab-scores" class="tab-content">
+      <div id="scores-container">
+        <p style="color:var(--dim)">Scores appear after your first action.</p>
+      </div>
+    </div>
+
+    <!-- Tab: World State -->
+    <div id="tab-state" class="tab-content">
+      <div id="state-container">
+        <p style="color:var(--dim)">Start a session to see world state.</p>
+      </div>
+    </div>
+
+    <!-- Tab: Debug Log -->
+    <div id="tab-debug" class="tab-content">
+      <div id="debug-content">
+        <p style="color:var(--dim)">Debug output will appear here for each turn.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   Procedural Trainer – Admin Debug UI  (Vanilla JS)
+   ═══════════════════════════════════════════════════════ */
+
+const API = '';  // same-origin
+
+let sessionActive = false;
+let turnCounter = 0;
+
+// ── Init ────────────────────────────────────────────────
+
+(async function init() {
+  const res = await fetch(`${API}/api/scenarios`);
+  const scenarios = await res.json();
+  const sel = document.getElementById('scenario-select');
+  sel.innerHTML = '';
+  scenarios.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.scenario_id;
+    opt.textContent = `${s.name}  (${s.difficulty})`;
+    sel.appendChild(opt);
+  });
+})();
+
+// ── Session management ──────────────────────────────────
+
+async function startSession() {
+  const scenarioId = document.getElementById('scenario-select').value;
+  const btn = document.getElementById('start-btn');
+  btn.disabled = true;
+  btn.textContent = 'Starting...';
+
+  try {
+    const res = await fetch(`${API}/api/start`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ scenario_id: scenarioId || null }),
+    });
+    if (!res.ok) throw new Error((await res.json()).detail || 'Start failed');
+    const data = await res.json();
+
+    sessionActive = true;
+    turnCounter = 0;
+
+    document.getElementById('start-overlay').classList.add('hidden');
+    document.getElementById('chat-input').disabled = false;
+    document.getElementById('send-btn').disabled = false;
+
+    // Top bar
+    document.getElementById('tb-scenario').textContent = data.scenario.name;
+    const badge = document.getElementById('tb-badge');
+    badge.className = `badge badge-${data.scenario.difficulty}`;
+    badge.textContent = data.scenario.difficulty;
+
+    // Chat
+    clearChat();
+    addMessage('trainer', data.intro);
+
+    // Panels
+    renderTree(data.protocol_tree);
+    renderConstraints(data.constraints);
+    renderState(data.state_summary);
+
+  } catch (e) {
+    alert('Error: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Start Session';
+  }
+}
+
+function resetSession() {
+  sessionActive = false;
+  document.getElementById('start-overlay').classList.remove('hidden');
+  document.getElementById('chat-input').disabled = true;
+  document.getElementById('send-btn').disabled = true;
+}
+
+// ── Chat ────────────────────────────────────────────────
+
+function clearChat() {
+  document.getElementById('chat-messages').innerHTML = '';
+}
+
+function addMessage(role, text) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+
+  if (role === 'system') {
+    div.className = 'msg msg-system';
+    div.textContent = text;
+  } else {
+    div.className = `msg msg-${role}`;
+    const label = document.createElement('div');
+    label.className = 'msg-label';
+    label.textContent = role === 'trainer' ? '🎓 Trainer' : '🧑 You';
+    div.appendChild(label);
+    const body = document.createElement('div');
+    body.textContent = text;
+    div.appendChild(body);
+  }
+
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function addLoadingMessage() {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg msg-trainer';
+  div.id = 'loading-msg';
+  div.innerHTML = '<div class="msg-label">🎓 Trainer</div><div><span class="spinner"></span> Thinking...</div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeLoadingMessage() {
+  const el = document.getElementById('loading-msg');
+  if (el) el.remove();
+}
+
+async function sendAction() {
+  if (!sessionActive) return;
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  addMessage('trainee', text);
+  addLoadingMessage();
+  setInputEnabled(false);
+
+  try {
+    const res = await fetch(`${API}/api/action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    removeLoadingMessage();
+    if (!res.ok) throw new Error((await res.json()).detail || 'Action failed');
+    const data = await res.json();
+
+    addMessage('trainer', data.response);
+
+    if (data.is_complete && data.debrief) {
+      addMessage('system', '✅ Protocol complete! See debrief below.');
+      addMessage('trainer', data.debrief.debrief_text);
+    }
+
+    turnCounter++;
+    renderTree(data.protocol_tree);
+    renderConstraints(data.constraints);
+    renderState(data.state_summary);
+    if (data.scores) renderScores(data.scores);
+    if (data.debug) addDebugTurn(turnCounter, data.debug);
+
+  } catch (e) {
+    removeLoadingMessage();
+    addMessage('system', '⚠ Error: ' + e.message);
+  } finally {
+    setInputEnabled(true);
+    document.getElementById('chat-input').focus();
+  }
+}
+
+async function sendQuick(text) {
+  if (!sessionActive) return;
+  document.getElementById('chat-input').value = text;
+  await sendAction();
+}
+
+async function fetchStatus() {
+  if (!sessionActive) return;
+  try {
+    const res = await fetch(`${API}/api/status`);
+    if (!res.ok) throw new Error((await res.json()).detail || 'Status failed');
+    const data = await res.json();
+
+    const s = data.state_summary;
+    const st = s.state || {};
+    const sc = data.scores ? data.scores.scores : null;
+    let lines = ['─── ENVIRONMENT STATUS ───'];
+    lines.push(`Current step: ${s.current_step || 'none'}`);
+    lines.push(`Completed: ${s.completed_steps.length} steps  |  Violations: ${s.violations_count}  |  Actions: ${s.actions_count}`);
+    lines.push('');
+    lines.push('World state:');
+    Object.entries(st).forEach(([k, v]) => { lines.push(`  ${k}: ${v}`); });
+    if (sc) {
+      lines.push('');
+      lines.push(`Scores: Overall ${sc.overall}  |  Seq ${sc.sequence_adherence}  |  Crit ${sc.critical_compliance}  |  Branch ${sc.branch_correctness}  |  Hazard ${sc.hazard_awareness}  |  Compl ${sc.completion_quality}`);
+    }
+    addMessage('system', lines.join('\n'));
+
+    renderTree(data.protocol_tree);
+    renderConstraints(data.constraints);
+    renderState(data.state_summary);
+    if (data.scores) renderScores(data.scores);
+  } catch (e) {
+    addMessage('system', '⚠ Error: ' + e.message);
+  }
+}
+
+async function requestDebrief() {
+  if (!sessionActive) return;
+  addLoadingMessage();
+  try {
+    const res = await fetch(`${API}/api/debrief`, { method: 'POST' });
+    removeLoadingMessage();
+    if (!res.ok) throw new Error((await res.json()).detail || 'Debrief failed');
+    const data = await res.json();
+    addMessage('system', '📋 After-Action Debrief');
+    addMessage('trainer', data.debrief.debrief_text);
+    if (data.scores) renderScores(data.scores);
+  } catch (e) {
+    removeLoadingMessage();
+    addMessage('system', '⚠ Error: ' + e.message);
+  }
+}
+
+function setInputEnabled(enabled) {
+  document.getElementById('chat-input').disabled = !enabled;
+  document.getElementById('send-btn').disabled = !enabled;
+}
+
+// ── Protocol Tree ───────────────────────────────────────
+
+function renderTree(steps) {
+  const container = document.getElementById('tree-container');
+  container.innerHTML = '';
+
+  steps.forEach((step, idx) => {
+    // Connector line between nodes
+    if (idx > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'tree-connector';
+      if (steps[idx - 1].status === 'completed') conn.classList.add('completed');
+      else if (steps[idx - 1].status === 'current') conn.classList.add('current');
+      container.appendChild(conn);
+    }
+
+    const node = document.createElement('div');
+    node.className = `tree-node status-${step.status}`;
+    if (step.has_violation) node.classList.add('has-violation');
+
+    // Step ID
+    const stepId = document.createElement('div');
+    stepId.className = 'tree-step-id';
+    stepId.textContent = step.id;
+    node.appendChild(stepId);
+
+    // Description
+    const desc = document.createElement('div');
+    desc.className = 'tree-desc';
+    desc.textContent = step.description;
+    node.appendChild(desc);
+
+    // Badges
+    const badges = document.createElement('div');
+    badges.className = 'tree-badges';
+
+    const addBadge = (cls, text) => {
+      const b = document.createElement('span');
+      b.className = `tree-badge ${cls}`;
+      b.textContent = text;
+      badges.appendChild(b);
+    };
+
+    addBadge('tree-badge-phase', step.phase.replace(/_/g, ' '));
+    if (step.critical) addBadge('tree-badge-critical', 'Critical');
+    if (step.type === 'decision') addBadge('tree-badge-decision', 'Decision');
+    if (step.terminal) addBadge('tree-badge-terminal', 'Terminal');
+
+    if (step.status === 'completed') addBadge('tree-badge-status-completed', '✓ Done');
+    else if (step.status === 'current') addBadge('tree-badge-status-current', '▶ Current');
+    if (step.has_violation) addBadge('tree-badge-status-violation', '✗ Violation');
+
+    node.appendChild(badges);
+
+    // Decision branches
+    if (step.branches && step.branches.length > 0) {
+      step.branches.forEach(br => {
+        const bDiv = document.createElement('div');
+        bDiv.className = 'tree-branch' + (br.active ? ' active-branch' : '');
+        bDiv.textContent = `${br.active ? '●' : '○'} if ${br.condition} → ${br.next}`;
+        node.appendChild(bDiv);
+      });
+    }
+
+    container.appendChild(node);
+  });
+}
+
+function renderConstraints(constraints) {
+  if (!constraints || !constraints.length) return;
+  document.getElementById('constraints-container').style.display = '';
+  const list = document.getElementById('constraints-list');
+  list.innerHTML = '';
+  constraints.forEach(c => {
+    const item = document.createElement('div');
+    item.className = 'constraint-item' + (c.violated ? ' violated' : '');
+    item.innerHTML = `
+      <span class="constraint-icon"></span>
+      <span>${c.description}</span>
+      ${c.critical ? '<span class="tree-badge tree-badge-critical">Critical</span>' : ''}
+    `;
+    list.appendChild(item);
+  });
+}
+
+// ── Scores ──────────────────────────────────────────────
+
+function renderScores(scoreData) {
+  const container = document.getElementById('scores-container');
+  const scores = scoreData.scores;
+  if (!scores) return;
+
+  const dims = ['sequence_adherence', 'critical_compliance', 'branch_correctness', 'hazard_awareness', 'completion_quality'];
+
+  let html = '<div class="scores-grid">';
+
+  // Overall card
+  html += `
+    <div class="score-card overall">
+      <div class="score-label">Overall Score</div>
+      <div class="score-value" style="color:${scoreColor(scores.overall)}">${scores.overall}/100</div>
+      <div class="score-bar"><div class="score-bar-fill" style="width:${scores.overall}%;background:${scoreColor(scores.overall)}"></div></div>
+    </div>`;
+
+  dims.forEach(d => {
+    const val = scores[d] ?? 0;
+    const label = d.replace(/_/g, ' ');
+    html += `
+      <div class="score-card">
+        <div class="score-label">${label}</div>
+        <div class="score-value" style="color:${scoreColor(val)}">${val}</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:${val}%;background:${scoreColor(val)}"></div></div>
+      </div>`;
+  });
+
+  html += '</div>';
+
+  // Penalties
+  if (scoreData.penalties && scoreData.penalties.length > 0) {
+    html += '<h3 style="font-size:13px;color:var(--red);margin-bottom:8px">Penalties</h3>';
+    scoreData.penalties.forEach(p => {
+      html += `<div style="font-size:12px;color:var(--dim);margin-bottom:4px">• ${JSON.stringify(p)}</div>`;
+    });
+  }
+
+  container.innerHTML = html;
+}
+
+function scoreColor(val) {
+  if (val >= 80) return 'var(--green)';
+  if (val >= 50) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+// ── World State ─────────────────────────────────────────
+
+function renderState(summary) {
+  const container = document.getElementById('state-container');
+  if (!summary) return;
+  const state = summary.state || {};
+
+  let html = `
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px;color:var(--dim);margin-bottom:6px">SESSION INFO</div>
+      <div class="state-grid">
+        <div class="state-item"><div class="state-key">scenario</div><div class="state-val">${summary.scenario_name}</div></div>
+        <div class="state-item"><div class="state-key">difficulty</div><div class="state-val">${summary.difficulty}</div></div>
+        <div class="state-item"><div class="state-key">current_step</div><div class="state-val">${summary.current_step || 'none'}</div></div>
+        <div class="state-item"><div class="state-key">completed</div><div class="state-val">${summary.completed_steps.length} steps</div></div>
+        <div class="state-item"><div class="state-key">violations</div><div class="state-val ${summary.violations_count > 0 ? 'val-false' : ''}">${summary.violations_count}</div></div>
+        <div class="state-item"><div class="state-key">actions</div><div class="state-val">${summary.actions_count}</div></div>
+        <div class="state-item"><div class="state-key">is_complete</div><div class="state-val ${summary.is_complete ? 'val-true' : 'val-false'}">${summary.is_complete}</div></div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;color:var(--dim);margin-bottom:6px">WORLD STATE (SCENARIO VARIABLES)</div>
+      <div class="state-grid">`;
+
+  Object.entries(state).forEach(([k, v]) => {
+    let cls = '';
+    if (v === true) cls = 'val-true';
+    else if (v === false) cls = 'val-false';
+    html += `<div class="state-item"><div class="state-key">${k}</div><div class="state-val ${cls}">${v}</div></div>`;
+  });
+
+  html += '</div></div>';
+  container.innerHTML = html;
+}
+
+// ── Debug Log ───────────────────────────────────────────
+
+function addDebugTurn(turn, debug) {
+  const container = document.getElementById('debug-content');
+  // Remove placeholder if present
+  const placeholder = container.querySelector('p');
+  if (placeholder) placeholder.remove();
+
+  const div = document.createElement('div');
+  div.className = 'debug-turn';
+
+  const typeLabel = debug.turn_type || 'unknown';
+  const actionsLabel = (debug.parsed_actions || []).join(', ');
+
+  div.innerHTML = `
+    <div class="debug-turn-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? '' : 'none'">
+      <span>Turn ${turn} — ${typeLabel}</span>
+      <span style="color:var(--dim)">${actionsLabel}</span>
+    </div>
+    <div class="debug-turn-body">
+      ${debugSection('Parsed Actions', debug.parsed_actions)}
+      ${debug.action_results ? debugSection('Rule Engine Results', debug.action_results) : ''}
+      ${debugSection('RAG Chunks Retrieved', debug.rag_chunks)}
+      ${debug.rag_text ? debugSection('RAG Text', debug.rag_text) : ''}
+      ${debug.constraint_id ? debugSection('Constraint Violated', debug.constraint_id) : ''}
+      ${debug.hint_level ? debugSection('Hint Level', debug.hint_level) : ''}
+      ${debug.hint_text_raw ? debugSection('Hint (Raw)', debug.hint_text_raw) : ''}
+    </div>
+  `;
+
+  // Prepend newest first
+  container.insertBefore(div, container.firstChild);
+}
+
+function debugSection(label, data) {
+  let content;
+  if (typeof data === 'string') {
+    content = `<div class="debug-json">${escapeHtml(data)}</div>`;
+  } else {
+    content = `<div class="debug-json">${syntaxHighlight(JSON.stringify(data, null, 2))}</div>`;
+  }
+  return `<div class="debug-section"><div class="debug-section-label">${label}</div>${content}</div>`;
+}
+
+function syntaxHighlight(json) {
+  if (!json) return '';
+  json = escapeHtml(json);
+  return json.replace(/("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, function (match) {
+    let cls = 'num';
+    if (/^"/.test(match)) {
+      cls = /:$/.test(match) ? 'key' : 'str';
+    } else if (/true|false/.test(match)) {
+      cls = 'bool';
+    } else if (/null/.test(match)) {
+      cls = 'null';
+    }
+    return `<span class="${cls}">${match}</span>`;
+  });
+}
+
+function escapeHtml(text) {
+  const el = document.createElement('div');
+  el.textContent = text;
+  return el.innerHTML;
+}
+
+// ── Tabs ────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${name}`).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+
+</body>
+</html>

@@ -18,9 +18,6 @@ SOPs, plus the supporting VR / literature research that frames it.
 │
 ├── docs/                 Background research (lit review, platform notes, drawio)
 ├── datasets/             Protocol-research source material
-├── thesis-latex/         Overleaf-ready LaTeX projects
-│   ├── 01-vr-litreview/      VR + AI literature review (separate document)
-│   └── 02-procedural-trainer/ Architecture & code documentation (this repo)
 │
 ├── requirements.txt
 └── .env.example

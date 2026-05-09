@@ -45,10 +45,3 @@ python -m trainer --list-scenarios
 python -m uvicorn trainer.web.server:app --reload --port 8000
 # open http://localhost:8000
 ```
-
-## Documentation
-
-Full architecture, data model, scoring formulas, and run instructions are in
-[`thesis-latex/02-procedural-trainer/main.tex`](thesis-latex/02-procedural-trainer/main.tex).
-Compile on [Overleaf](https://www.overleaf.com) with pdfLaTeX (no external
-assets required — diagrams are TikZ).

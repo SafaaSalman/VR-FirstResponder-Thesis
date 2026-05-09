@@ -146,3 +146,8 @@ Thumbs.db
 # Logs
 *.log
 logs/
+
+# Thesis LaTeX sources (kept out of the code repo)
+thesis-latex/
+.claude
+.env

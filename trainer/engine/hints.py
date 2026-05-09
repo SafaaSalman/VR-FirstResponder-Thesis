@@ -13,6 +13,7 @@ from __future__ import annotations
 
 from typing import Optional
 
+from .. import config
 from .state import ScenarioState
 
 
@@ -33,7 +34,7 @@ class HintEngine:
             level = self.state.progress.current_hint_level
 
         # Clamp
-        level = max(1, min(level, 3))
+        level = max(1, min(level, config.MAX_HINT_LEVEL))
 
         current = self.state.progress.current_step
         step = self._step_index.get(current) if current else None
@@ -57,7 +58,7 @@ class HintEngine:
 
         # Auto-escalate for next request
         self.state.progress.hint_requests += 1
-        if self.state.progress.current_hint_level < 3:
+        if self.state.progress.current_hint_level < config.MAX_HINT_LEVEL:
             self.state.progress.current_hint_level += 1
 
         return {
